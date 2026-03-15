@@ -1,11 +1,9 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ICONO DE LA PAGINA -->
 <link rel="icon" type="image/png" href="icono.png">
 
 <title>Bruno Mars Live</title>
@@ -121,7 +119,7 @@ transform:scale(1.1);
 box-shadow:0 0 15px #ff8c42;
 }
 
-/* TELE */
+/* TV */
 
 .tv span{
 font-size:200px;
@@ -233,8 +231,6 @@ Bruno Mars Concierto en el Estadio
 <span>📺</span>
 </div>
 
-<!-- BOTONES SECRETOS -->
-
 <div id="dev">
 
 <button onclick="normal()">Normal</button>
@@ -247,8 +243,6 @@ Bruno Mars Concierto en el Estadio
 
 document.addEventListener("DOMContentLoaded", function(){
 
-/* BOTONES VIDEO */
-
 window.video1=function(){
 window.location.href="https://www.youtube.com/watch?v=1iBm60uJXvs";
 }
@@ -260,8 +254,6 @@ window.location.href="https://www.youtube.com/watch?v=4J41KdZ3JR8";
 window.video3=function(){
 window.location.href="https://www.youtube.com/watch?v=mrV8kK5t0V8";
 }
-
-/* CONTADOR */
 
 const fechaObjetivo=new Date("December 8, 2026 14:30:00 GMT-0600").getTime();
 const inicio=new Date("March 13, 2026").getTime();
@@ -288,8 +280,6 @@ const porcentaje=(pasado/total)*100;
 
 progreso.style.width=porcentaje+"%";
 
-/* MODOS AUTOMATICOS */
-
 if(dias<=50){
 document.body.classList.add("final");
 document.getElementById("stars").style.display="none";
@@ -301,8 +291,6 @@ document.getElementById("stars").style.display="none";
 }
 
 },1000);
-
-/* ESTRELLAS */
 
 const canvas=document.getElementById("stars");
 const ctx=canvas.getContext("2d");
@@ -347,8 +335,6 @@ requestAnimationFrame(animar);
 
 animar();
 
-/* ROSAS */
-
 function rosa(){
 
 if(!document.body.classList.contains("show")) return;
@@ -372,8 +358,6 @@ r.remove();
 }
 
 setInterval(rosa,700);
-
-/* BOTONES SECRETOS */
 
 window.normal=function(){
 document.body.classList.remove("show");
@@ -399,4 +383,3 @@ document.getElementById("stars").style.display="none";
 
 </body>
 </html>
-```
