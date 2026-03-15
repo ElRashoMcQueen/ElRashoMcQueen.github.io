@@ -1,8 +1,14 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ICONO DE LA PAGINA -->
+<link rel="icon" type="image/png" href="icono.png">
+
+<title>Bruno Mars Live</title>
 
 <style>
 
@@ -18,22 +24,27 @@ flex-direction:column;
 align-items:center;
 }
 
-/* TEXTO SUPERIOR */
+/* TITULO SUPERIOR */
 
 .titulo-superior{
 margin-top:12px;
 font-size:26px;
 letter-spacing:2px;
+color:#ffd166;
+text-shadow:2px 2px 4px black;
 }
 
-/* TITULO */
+/* TITULO PRINCIPAL */
 
 h1{
 font-size:58px;
 margin:8px 0;
-color:white;
+color:#8b0000;
+font-style:italic;
 -webkit-text-stroke:2px black;
-text-shadow:0 0 10px black;
+text-shadow:
+2px 2px 0 black,
+4px 4px 10px black;
 }
 
 /* MODO 100 DIAS */
@@ -43,16 +54,8 @@ background:url("escenario.png") center center / cover no-repeat fixed;
 color:#f4e3a3;
 }
 
-.show h1{
-color:#f2d27c;
-text-shadow:
-2px 2px 0 #1f3d2b,
-4px 4px 0 #000;
-}
-
 .show .titulo-superior{
 color:#9bbf7a;
-text-shadow:1px 1px 3px black;
 }
 
 /* MODO 50 DIAS */
@@ -60,19 +63,6 @@ text-shadow:1px 1px 3px black;
 .final{
 background:url("silla50.png") center center / cover no-repeat fixed;
 color:white;
-}
-
-.final h1{
-color:#8b0000;
-font-style:italic;
-text-shadow:
-2px 2px 0 black,
-4px 4px 10px black;
-}
-
-.final .titulo-superior{
-color:#8b0000;
-font-style:italic;
 }
 
 .final #contador{
@@ -104,26 +94,6 @@ width:0%;
 background:linear-gradient(90deg,#ff00ff,#ff4da6);
 }
 
-/* barra vintage */
-
-.show .barra{
-background:rgba(0,0,0,0.4);
-}
-
-.show .progreso{
-background:linear-gradient(90deg,#9bbf7a,#d6b45f);
-}
-
-/* barra final */
-
-.final .barra{
-background:rgba(0,0,0,0.6);
-}
-
-.final .progreso{
-background:linear-gradient(90deg,#8b0000,#ff0000);
-}
-
 /* BOTONES */
 
 .botones{
@@ -139,32 +109,19 @@ padding:12px 24px;
 font-size:18px;
 border-radius:20px;
 border:none;
-background:#ff4da6;
+background:linear-gradient(45deg,#ff4da6,#ff8c42);
 color:white;
 cursor:pointer;
 box-shadow:0 0 10px #ff4da6;
+transition:0.3s;
 }
 
-/* botones vintage */
-
-.show .boton{
-background:#c79a3b;
-color:black;
-box-shadow:0 0 8px #000;
-border:2px solid #1f3d2b;
+.boton:hover{
+transform:scale(1.1);
+box-shadow:0 0 15px #ff8c42;
 }
 
-/* botones final */
-
-.final .boton{
-background:#8b0000;
-color:white;
-border:2px solid black;
-font-style:italic;
-box-shadow:0 0 10px black;
-}
-
-/* TV */
+/* TELE */
 
 .tv span{
 font-size:200px;
@@ -211,6 +168,19 @@ transform:translateY(110vh);
 opacity:0;
 }
 
+}
+
+/* BOTONES SECRETOS */
+
+#dev{
+position:fixed;
+bottom:10px;
+right:10px;
+opacity:0.2;
+}
+
+#dev button{
+margin:2px;
 }
 
 /* MOVIL */
@@ -263,11 +233,21 @@ Bruno Mars Concierto en el Estadio
 <span>📺</span>
 </div>
 
+<!-- BOTONES SECRETOS -->
+
+<div id="dev">
+
+<button onclick="normal()">Normal</button>
+<button onclick="modo100()">100 días</button>
+<button onclick="modo50()">50 días</button>
+
+</div>
+
 <script>
 
 document.addEventListener("DOMContentLoaded", function(){
 
-/* BOTONES */
+/* BOTONES VIDEO */
 
 window.video1=function(){
 window.location.href="https://www.youtube.com/watch?v=1iBm60uJXvs";
@@ -283,7 +263,7 @@ window.location.href="https://www.youtube.com/watch?v=mrV8kK5t0V8";
 
 /* CONTADOR */
 
-const fechaObjetivo=new Date("May 1, 2026 14:30:00 GMT-0600").getTime();
+const fechaObjetivo=new Date("December 8, 2026 14:30:00 GMT-0600").getTime();
 const inicio=new Date("March 13, 2026").getTime();
 
 const progreso=document.getElementById("progreso");
@@ -308,7 +288,7 @@ const porcentaje=(pasado/total)*100;
 
 progreso.style.width=porcentaje+"%";
 
-/* MODOS */
+/* MODOS AUTOMATICOS */
 
 if(dias<=50){
 document.body.classList.add("final");
@@ -393,9 +373,30 @@ r.remove();
 
 setInterval(rosa,700);
 
+/* BOTONES SECRETOS */
+
+window.normal=function(){
+document.body.classList.remove("show");
+document.body.classList.remove("final");
+document.getElementById("stars").style.display="block";
+}
+
+window.modo100=function(){
+document.body.classList.remove("final");
+document.body.classList.add("show");
+document.getElementById("stars").style.display="none";
+}
+
+window.modo50=function(){
+document.body.classList.remove("show");
+document.body.classList.add("final");
+document.getElementById("stars").style.display="none";
+}
+
 });
 
 </script>
 
 </body>
 </html>
+```
