@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bruno Mars Countdown</title>
 
-<link rel="icon" href="icono.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
@@ -59,6 +55,31 @@ color:#9bbf7a;
 text-shadow:1px 1px 3px black;
 }
 
+/* MODO 50 DIAS */
+
+.final{
+background:url("silla50.png") center center / cover no-repeat fixed;
+color:white;
+}
+
+.final h1{
+color:#8b0000;
+font-style:italic;
+text-shadow:
+2px 2px 0 black,
+4px 4px 10px black;
+}
+
+.final .titulo-superior{
+color:#8b0000;
+font-style:italic;
+}
+
+.final #contador{
+color:#8b0000;
+font-style:italic;
+}
+
 /* CONTADOR */
 
 #contador{
@@ -93,6 +114,16 @@ background:rgba(0,0,0,0.4);
 background:linear-gradient(90deg,#9bbf7a,#d6b45f);
 }
 
+/* barra final */
+
+.final .barra{
+background:rgba(0,0,0,0.6);
+}
+
+.final .progreso{
+background:linear-gradient(90deg,#8b0000,#ff0000);
+}
+
 /* BOTONES */
 
 .botones{
@@ -123,6 +154,16 @@ box-shadow:0 0 8px #000;
 border:2px solid #1f3d2b;
 }
 
+/* botones final */
+
+.final .boton{
+background:#8b0000;
+color:white;
+border:2px solid black;
+font-style:italic;
+box-shadow:0 0 10px black;
+}
+
 /* TV */
 
 .tv span{
@@ -131,6 +172,10 @@ margin-top:15px;
 }
 
 .show .tv{
+display:none;
+}
+
+.final .tv{
 display:none;
 }
 
@@ -195,7 +240,7 @@ padding:10px 16px;
 <canvas id="stars"></canvas>
 
 <div class="titulo-superior">
-Bruno Mars Concierto en el Estadio GNP Seguros
+Bruno Mars Concierto en el Estadio
 </div>
 
 <h1>BRUNO MARS LIVE</h1>
@@ -263,9 +308,14 @@ const porcentaje=(pasado/total)*100;
 
 progreso.style.width=porcentaje+"%";
 
-/* activar modo 100 dias */
+/* MODOS */
 
-if(dias<=100){
+if(dias<=50){
+document.body.classList.add("final");
+document.getElementById("stars").style.display="none";
+}
+
+else if(dias<=100){
 document.body.classList.add("show");
 document.getElementById("stars").style.display="none";
 }
