@@ -250,7 +250,7 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 
 <div class="secreto">
 <button onclick="abrirSecreto()">🤫</button><br>
-<input id="codigoSecreto" placeholder="..." oninput="verificarCodigo()">
+<input id="codigoSecreto" placeholder="..." onkeydown="detectarEnter(event)" oninput="quitarModo()">
 </div>
 
 <script>
@@ -384,7 +384,9 @@ function abrirSecreto(){
 document.getElementById("codigoSecreto").focus();
 }
 
-function verificarCodigo(){
+function detectarEnter(e){
+
+if(e.key==="Enter"){
 
 const codigo=document.getElementById("codigoSecreto").value;
 
@@ -392,12 +394,25 @@ if(codigo==="codigomuysecreto"){
 
 document.body.classList.add("show");
 document.getElementById("stars").style.display="none";
-document.getElementById("contador").innerHTML="50d 0h 0m 0s";
 
 }
 
 }
 
+}
+
+function quitarModo(){
+
+const codigo=document.getElementById("codigoSecreto").value;
+
+if(codigo!=="codigomuysecreto"){
+
+document.body.classList.remove("show");
+document.getElementById("stars").style.display="block";
+
+}
+
+}
 </script>
 
 </body>
