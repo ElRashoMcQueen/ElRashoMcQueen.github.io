@@ -161,9 +161,7 @@ left:0;
 z-index:-1;
 }
 
-/* ===================== */
-/* MODO 200 DIAS */
-/* ===================== */
+/* MODO 200 */
 
 .modo200{
 background:url("silla50.png") center center / cover no-repeat fixed;
@@ -233,24 +231,7 @@ display:none;
 display:none;
 }
 
-/* MOVIL */
-
-@media (max-width:700px){
-
-h1{font-size:34px;}
-#contador{font-size:34px;}
-.barra{width:90%;}
-
-.boton{
-font-size:16px;
-padding:10px 16px;
-}
-
-}
-
-/* ===================== */
 /* CODIGO SECRETO */
-/* ===================== */
 
 .secreto{
 position:fixed;
@@ -291,7 +272,6 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 <h1>BRUNO MARS LIVE</h1>
 
 <div id="contador"></div>
-
 <div id="horaCDMX"></div>
 
 <div class="barra">
@@ -299,11 +279,9 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 </div>
 
 <div class="botones">
-
 <button class="boton" onclick="video1()">Liquor Store Blues</button>
 <button class="boton" onclick="video2()">Radio de Bruno Mars</button>
 <button class="boton" onclick="video3()">I Just Might</button>
-
 </div>
 
 <div class="tv">
@@ -317,7 +295,126 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 
 <script>
 
-/* TODO EL SCRIPT ES EXACTAMENTE EL MISMO QUE YA TENIAS */
+/* CONTADOR */
+
+const fechaObjetivo=new Date("December 8, 2026 14:30:00 GMT-0600").getTime();
+const inicio=new Date("March 13, 2026").getTime();
+
+const progreso=document.getElementById("progreso");
+
+setInterval(function(){
+
+const ahora=new Date().getTime();
+const diferencia=fechaObjetivo-ahora;
+
+const dias=Math.floor(diferencia/(1000*60*60*24));
+const horas=Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
+const minutos=Math.floor((diferencia%(1000*60*60))/(1000*60));
+const segundos=Math.floor((diferencia%(1000*60))/1000);
+
+document.getElementById("contador").innerHTML=
+dias+"d "+horas+"h "+minutos+"m "+segundos+"s";
+
+const total=fechaObjetivo-inicio;
+const pasado=ahora-inicio;
+
+progreso.style.width=(pasado/total*100)+"%";
+
+/* MODO 100 */
+
+if(dias<=100){
+document.body.classList.add("show");
+document.getElementById("stars").style.display="none";
+}
+
+/* MODO 200 AUTOMATICO */
+
+if(dias<=200 && dias>100){
+document.body.classList.add("modo200");
+document.getElementById("stars").style.display="none";
+}
+
+/* HORA CDMX */
+
+const horaCDMX=new Date().toLocaleTimeString("es-MX",{
+timeZone:"America/Mexico_City"
+});
+
+document.getElementById("horaCDMX").innerHTML="CDMX: "+horaCDMX;
+
+},1000);
+
+/* ESTRELLAS */
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let estrellas=[];
+
+for(let i=0;i<200;i++){
+estrellas.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2
+});
+}
+
+function animar(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="white";
+
+estrellas.forEach(e=>{
+ctx.beginPath();
+ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
+ctx.fill();
+
+e.y+=0.2;
+if(e.y>canvas.height)e.y=0;
+
+});
+
+requestAnimationFrame(animar);
+
+}
+
+animar();
+
+/* CODIGOS SECRETOS */
+
+function abrirSecreto(){
+document.getElementById("codigoSecreto").focus();
+}
+
+function detectarEnter(e){
+
+if(e.key==="Enter"){
+
+const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
+
+if(codigo==="justmight"){
+document.body.classList.add("show");
+document.getElementById("stars").style.display="none";
+}
+
+if(codigo==="mars"){
+document.body.classList.remove("show");
+document.body.classList.remove("modo200");
+document.getElementById("stars").style.display="block";
+}
+
+if(codigo==="riskitall"){
+document.body.classList.add("modo200");
+document.getElementById("stars").style.display="none";
+}
+
+}
+
+}
 
 </script>
 
