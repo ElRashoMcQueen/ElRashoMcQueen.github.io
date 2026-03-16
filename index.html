@@ -66,6 +66,30 @@ font-size:55px;
 margin:10px;
 }
 
+/* CONTORNO CONTADOR EN MODO SHOW */
+
+.show #contador{
+color:#f2d27c;
+-webkit-text-stroke:2px #1f3d2b;
+text-shadow:
+2px 2px 0 #1f3d2b,
+4px 4px 0 #000;
+}
+
+/* HORA CDMX */
+
+#horaCDMX{
+font-size:22px;
+margin-top:5px;
+opacity:0.9;
+}
+
+.show #horaCDMX{
+color:white;
+-webkit-text-stroke:2px black;
+text-shadow:0 0 10px black;
+}
+
 /* BARRA */
 
 .barra{
@@ -226,6 +250,8 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 
 <div id="contador"></div>
 
+<div id="horaCDMX"></div>
+
 <div class="barra">
 <div class="progreso" id="progreso"></div>
 </div>
@@ -296,6 +322,17 @@ if(dias<=100){
 document.body.classList.add("show");
 document.getElementById("stars").style.display="none";
 }
+
+/* HORA CDMX */
+
+const horaCDMX=new Date().toLocaleTimeString("es-MX",{
+timeZone:"America/Mexico_City",
+hour:"2-digit",
+minute:"2-digit",
+second:"2-digit"
+});
+
+document.getElementById("horaCDMX").innerHTML="CDMX: "+horaCDMX;
 
 },1000);
 
@@ -384,13 +421,11 @@ if(e.key==="Enter"){
 
 const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
 
-/* activar modo show */
+/* activar modo 100 dias */
 
-if(codigo==="codigomuysecreto"){
-
+if(codigo==="justmight"){
 document.body.classList.add("show");
 document.getElementById("stars").style.display="none";
-
 }
 
 /* confetti */
@@ -402,10 +437,8 @@ lanzarConfetti();
 /* regresar modo normal */
 
 if(codigo==="mars"){
-
 document.body.classList.remove("show");
 document.getElementById("stars").style.display="block";
-
 }
 
 }
@@ -459,10 +492,8 @@ conf.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg)`;
 conf.style.opacity=Math.max(0,1-y/(window.innerHeight+50));
 
 if(y>window.innerHeight+50){
-
 conf.remove();
 clearInterval(anim);
-
 }
 
 },16);
