@@ -414,6 +414,68 @@ document.getElementById("stars").style.display="block";
 
 }
 </script>
+/* CONFETTI PROFESIONAL AL ESCRIBIR BRUNO */
 
+const inputSecreto = document.getElementById("codigoSecreto");
+
+inputSecreto.addEventListener("keydown", function(e){
+    if(e.key === "Enter"){
+        if(inputSecreto.value === "Bruno"){
+            lanzarConfetti();
+        }
+    }
+});
+
+function lanzarConfetti(){
+    const cantidad = 200; // Número de confettis
+    for(let i=0; i<cantidad; i++){
+        const conf = document.createElement("div");
+        conf.style.position = "fixed";
+        conf.style.pointerEvents = "none";
+        conf.style.zIndex = 9999;
+
+        // Tamaño aleatorio
+        const tamaño = Math.random() * 10 + 5;
+        conf.style.width = `${tamaño}px`;
+        conf.style.height = `${tamaño}px`;
+
+        // Forma aleatoria: círculo o cuadrado
+        conf.style.borderRadius = Math.random() > 0.5 ? "50%" : "0%";
+
+        // Color aleatorio
+        conf.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
+
+        // Posición inicial
+        conf.style.left = Math.random() * window.innerWidth + "px";
+        conf.style.top = "-20px";
+
+        document.body.appendChild(conf);
+
+        // Velocidades aleatorias
+        const velocidadX = (Math.random() - 0.5) * 6;
+        const velocidadY = Math.random() * 5 + 3;
+        const giro = (Math.random() - 0.5) * 20;
+
+        let x = parseFloat(conf.style.left);
+        let y = -20;
+        let rot = 0;
+
+        const anim = setInterval(()=>{
+            y += velocidadY;
+            x += velocidadX;
+            rot += giro;
+            conf.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
+
+            // Desaparece gradualmente
+            conf.style.opacity = Math.max(0, 1 - y / (window.innerHeight + 50));
+
+            // Elimina cuando sale de pantalla o se hace invisible
+            if(y > window.innerHeight + 50){
+                conf.remove();
+                clearInterval(anim);
+            }
+        },16);
+    }
+}
 </body>
 </html>
