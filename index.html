@@ -266,6 +266,31 @@ box-shadow:
 0 0 30px red;
 }
 
+/* AJUSTES SOLO MODO 200 */
+
+.modo200 canvas{
+display:none;
+}
+
+.modo200 .tv{
+display:none;
+}
+
+.modo200 .boton{
+background:linear-gradient(
+90deg,
+#ff0000,
+#ff3b3b,
+#ff0000,
+#ff6a00
+);
+color:white;
+box-shadow:
+0 0 10px red,
+0 0 20px red;
+border:2px solid black;
+}
+  
 /* MOVIL */
 
 @media (max-width:700px){
@@ -467,10 +492,11 @@ document.getElementById("stars").style.display="block";
 
 /* MODO 200 DIAS */
 
-if(codigo==="riskitall"){
-document.body.classList.add("modo200");
+if(codigo==="mars"){
+document.body.classList.remove("show");
+document.body.classList.remove("modo200");
+document.getElementById("stars").style.display="block";
 }
-
 }
 
 }
