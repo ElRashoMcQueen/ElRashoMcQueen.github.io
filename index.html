@@ -231,6 +231,16 @@ display:none;
 display:none;
 }
 
+/* BOTON RISK IT ALL SOLO MODO 200 */
+
+.boton-risk{
+display:none;
+}
+
+.modo200 .boton-risk{
+display:inline-block;
+}
+
 /* CODIGO SECRETO */
 
 .secreto{
@@ -256,6 +266,26 @@ background:transparent;
 border:none;
 font-size:18px;
 cursor:pointer;
+}
+
+/* MENSAJE ERROR */
+
+#errorCodigo{
+color:red;
+font-weight:bold;
+margin-top:4px;
+display:none;
+animation:temblar 0.4s;
+}
+
+@keyframes temblar{
+
+0%{transform:translateX(0);}
+25%{transform:translateX(-5px);}
+50%{transform:translateX(5px);}
+75%{transform:translateX(-5px);}
+100%{transform:translateX(0);}
+
 }
 
 /* ROSAS */
@@ -292,16 +322,6 @@ opacity:0.9;
 
 }
 
-/* BOTON RISK IT ALL (SOLO MODO 200) */
-
-.boton-risk{
-display:none;
-}
-
-.modo200 .boton-risk{
-display:inline-block;
-}
-
 </style>
 </head>
 
@@ -333,7 +353,6 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 onclick="window.open('https://www.youtube.com/watch?v=lY5V4hSLWY8','_blank')">
 Risk It All
 </button>
-
 </div>
 
 <div class="tv">
@@ -343,6 +362,7 @@ Risk It All
 <div class="secreto">
 <button onclick="abrirSecreto()">🤫</button><br>
 <input id="codigoSecreto" placeholder="..." onkeydown="detectarEnter(event)">
+<div id="errorCodigo">INCORRECTO</div>
 </div>
 
 <script>
@@ -396,46 +416,6 @@ document.getElementById("horaCDMX").innerHTML="CDMX: "+horaCDMX;
 
 },1000);
 
-/* ESTRELLAS */
-
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let estrellas=[];
-
-for(let i=0;i<200;i++){
-estrellas.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2
-});
-}
-
-function animar(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="white";
-
-estrellas.forEach(e=>{
-ctx.beginPath();
-ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
-ctx.fill();
-
-e.y+=0.2;
-if(e.y>canvas.height)e.y=0;
-
-});
-
-requestAnimationFrame(animar);
-
-}
-
-animar();
-
 /* ROSAS */
 
 function crearRosa(){
@@ -478,21 +458,30 @@ function detectarEnter(e){
 if(e.key==="Enter"){
 
 const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
+const error=document.getElementById("errorCodigo");
+
+error.style.display="none";
 
 if(codigo==="justmight"){
 document.body.classList.add("show");
-document.getElementById("stars").style.display="none";
 }
 
-if(codigo==="mars"){
+else if(codigo==="riskitall"){
+document.body.classList.add("modo200");
+}
+
+else if(codigo==="mars"){
 document.body.classList.remove("show");
 document.body.classList.remove("modo200");
-document.getElementById("stars").style.display="block";
 }
 
-if(codigo==="riskitall"){
-document.body.classList.add("modo200");
-document.getElementById("stars").style.display="none";
+else{
+
+error.style.display="block";
+error.style.animation="none";
+error.offsetHeight;
+error.style.animation="temblar 0.4s";
+
 }
 
 }
