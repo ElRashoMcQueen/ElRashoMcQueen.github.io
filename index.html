@@ -254,14 +254,17 @@ document.getElementById("horaCDMX").innerHTML="CDMX: "+horaCDMX;
 
 /* MODOS */
 
+document.body.classList.remove("show");
+document.body.classList.remove("modo200");
+
 if(dias<=100){
 document.body.classList.add("show");
 }
 
-if(dias<=200 && dias>100){
+else if(dias<=200){
 document.body.classList.add("modo200");
 }
-
+  
 },1000);
 
 /* ESTRELLAS */
