@@ -83,8 +83,6 @@ width:0%;
 background:linear-gradient(90deg,#ff00ff,#ff4da6);
 }
 
-/* barra vintage */
-
 .show .barra{
 background:rgba(0,0,0,0.4);
 }
@@ -113,8 +111,6 @@ color:white;
 cursor:pointer;
 box-shadow:0 0 10px #ff4da6;
 }
-
-/* botones vintage */
 
 .show .boton{
 background:#c79a3b;
@@ -246,11 +242,9 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 <span>📺</span>
 </div>
 
-<!-- BOTON SECRETO -->
-
 <div class="secreto">
 <button onclick="abrirSecreto()">🤫</button><br>
-<input id="codigoSecreto" placeholder="..." onkeydown="detectarEnter(event)" oninput="quitarModo()">
+<input id="codigoSecreto" placeholder="..." onkeydown="detectarEnter(event)">
 </div>
 
 <script>
@@ -378,7 +372,7 @@ setInterval(rosa,700);
 
 });
 
-/* CODIGO SECRETO */
+/* FUNCIONES SECRETAS */
 
 function abrirSecreto(){
 document.getElementById("codigoSecreto").focus();
@@ -388,7 +382,9 @@ function detectarEnter(e){
 
 if(e.key==="Enter"){
 
-const codigo=document.getElementById("codigoSecreto").value;
+const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
+
+/* activar modo show */
 
 if(codigo==="codigomuysecreto"){
 
@@ -397,15 +393,15 @@ document.getElementById("stars").style.display="none";
 
 }
 
+/* confetti */
+
+if(codigo==="bruno"){
+lanzarConfetti();
 }
 
-}
+/* regresar modo normal */
 
-function quitarModo(){
-
-const codigo=document.getElementById("codigoSecreto").value;
-
-if(codigo!=="codigomuysecreto"){
+if(codigo==="mars"){
 
 document.body.classList.remove("show");
 document.getElementById("stars").style.display="block";
@@ -413,69 +409,69 @@ document.getElementById("stars").style.display="block";
 }
 
 }
-</script>
-/* CONFETTI PROFESIONAL AL ESCRIBIR BRUNO */
 
-const inputSecreto = document.getElementById("codigoSecreto");
+}
 
-inputSecreto.addEventListener("keydown", function(e){
-    if(e.key === "Enter"){
-        if(inputSecreto.value === "Bruno"){
-            lanzarConfetti();
-        }
-    }
-});
+/* CONFETTI */
 
 function lanzarConfetti(){
-    const cantidad = 200; // Número de confettis
-    for(let i=0; i<cantidad; i++){
-        const conf = document.createElement("div");
-        conf.style.position = "fixed";
-        conf.style.pointerEvents = "none";
-        conf.style.zIndex = 9999;
 
-        // Tamaño aleatorio
-        const tamaño = Math.random() * 10 + 5;
-        conf.style.width = `${tamaño}px`;
-        conf.style.height = `${tamaño}px`;
+const cantidad=220;
 
-        // Forma aleatoria: círculo o cuadrado
-        conf.style.borderRadius = Math.random() > 0.5 ? "50%" : "0%";
+for(let i=0;i<cantidad;i++){
 
-        // Color aleatorio
-        conf.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
+const conf=document.createElement("div");
 
-        // Posición inicial
-        conf.style.left = Math.random() * window.innerWidth + "px";
-        conf.style.top = "-20px";
+conf.style.position="fixed";
+conf.style.pointerEvents="none";
+conf.style.zIndex=9999;
 
-        document.body.appendChild(conf);
+const tamaño=Math.random()*12+6;
 
-        // Velocidades aleatorias
-        const velocidadX = (Math.random() - 0.5) * 6;
-        const velocidadY = Math.random() * 5 + 3;
-        const giro = (Math.random() - 0.5) * 20;
+conf.style.width=tamaño+"px";
+conf.style.height=tamaño+"px";
 
-        let x = parseFloat(conf.style.left);
-        let y = -20;
-        let rot = 0;
+conf.style.borderRadius=Math.random()>0.5?"50%":"0%";
 
-        const anim = setInterval(()=>{
-            y += velocidadY;
-            x += velocidadX;
-            rot += giro;
-            conf.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
+conf.style.background=`hsl(${Math.random()*360},80%,60%)`;
 
-            // Desaparece gradualmente
-            conf.style.opacity = Math.max(0, 1 - y / (window.innerHeight + 50));
+conf.style.left=Math.random()*window.innerWidth+"px";
+conf.style.top="-20px";
 
-            // Elimina cuando sale de pantalla o se hace invisible
-            if(y > window.innerHeight + 50){
-                conf.remove();
-                clearInterval(anim);
-            }
-        },16);
-    }
+document.body.appendChild(conf);
+
+const vx=(Math.random()-0.5)*6;
+const vy=Math.random()*5+3;
+const giro=(Math.random()-0.5)*20;
+
+let x=parseFloat(conf.style.left);
+let y=-20;
+let rot=0;
+
+const anim=setInterval(()=>{
+
+y+=vy;
+x+=vx;
+rot+=giro;
+
+conf.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg)`;
+
+conf.style.opacity=Math.max(0,1-y/(window.innerHeight+50));
+
+if(y>window.innerHeight+50){
+
+conf.remove();
+clearInterval(anim);
+
 }
+
+},16);
+
+}
+
+}
+
+</script>
+
 </body>
 </html>
