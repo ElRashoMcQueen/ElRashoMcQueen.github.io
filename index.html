@@ -40,6 +40,17 @@ color:white;
 text-shadow:0 0 10px black;
 }
 
+/* IMAGEN TITULO MODO 200 */
+
+.brunorisk{
+display:none;
+margin:8px 0;
+}
+
+.brunorisk img{
+height:70px;
+}
+
 /* MODO SHOW */
 
 .show{
@@ -168,6 +179,14 @@ background:url("silla50.png") center center / cover no-repeat fixed;
 }
 
 .modo200 h1{
+display:none;
+}
+
+.modo200 .brunorisk{
+display:block;
+}
+
+.modo200 h1{
 color:#ff2b2b;
 -webkit-text-stroke:2px black;
 text-shadow:2px 2px 0 black;
@@ -292,7 +311,7 @@ opacity:0.9;
 
 }
 
-/* BOTON RISK IT ALL (SOLO MODO 200) */
+/* BOTON RISK IT ALL */
 
 .boton-risk{
 display:none;
@@ -317,6 +336,10 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 
 <h1>BRUNO MARS LIVE</h1>
 
+<div class="brunorisk">
+<img src="Brunoriskcursiva.png">
+</div>
+
 <div id="contador"></div>
 <div id="horaCDMX"></div>
 
@@ -333,7 +356,6 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 onclick="window.open('https://www.youtube.com/watch?v=lY5V4hSLWY8','_blank')">
 Risk It All
 </button>
-
 </div>
 
 <div class="tv">
