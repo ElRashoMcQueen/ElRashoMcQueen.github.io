@@ -66,8 +66,6 @@ font-size:55px;
 margin:10px;
 }
 
-/* CONTORNO CONTADOR EN MODO SHOW */
-
 .show #contador{
 color:#f2d27c;
 -webkit-text-stroke:2px #1f3d2b;
@@ -76,7 +74,7 @@ text-shadow:
 4px 4px 0 #000;
 }
 
-/* HORA CDMX */
+/* HORA */
 
 #horaCDMX{
 font-size:22px;
@@ -163,59 +161,6 @@ left:0;
 z-index:-1;
 }
 
-/* ROSAS */
-
-.rosa{
-position:fixed;
-font-size:28px;
-animation:caer linear;
-pointer-events:none;
-}
-
-@keyframes caer{
-
-0%{
-transform:translateY(-100px);
-opacity:0;
-}
-
-10%{opacity:1}
-
-100%{
-transform:translateY(110vh);
-opacity:0;
-}
-
-}
-
-/* BOTON SECRETO */
-
-.secreto{
-position:fixed;
-bottom:10px;
-right:10px;
-z-index:10;
-text-align:center;
-}
-
-.secreto button{
-font-size:16px;
-border:none;
-background:transparent;
-cursor:pointer;
-}
-
-.secreto input{
-margin-top:3px;
-width:110px;
-font-size:12px;
-border-radius:10px;
-border:none;
-padding:4px;
-text-align:center;
-opacity:0.7;
-}
-
 /* ===================== */
 /* MODO 200 DIAS */
 /* ===================== */
@@ -259,21 +204,10 @@ background:linear-gradient(
 #ff0000,
 #ff6a00
 );
-
 box-shadow:
 0 0 10px red,
 0 0 20px red,
 0 0 30px red;
-}
-
-/* AJUSTES SOLO MODO 200 */
-
-.modo200 canvas{
-display:none;
-}
-
-.modo200 .tv{
-display:none;
 }
 
 .modo200 .boton{
@@ -290,23 +224,27 @@ box-shadow:
 0 0 20px red;
 border:2px solid black;
 }
-  
+
+.modo200 canvas{
+display:none;
+}
+
+.modo200 .tv{
+display:none;
+}
+
 /* MOVIL */
 
 @media (max-width:700px){
 
 h1{font-size:34px;}
-
 #contador{font-size:34px;}
-
 .barra{width:90%;}
 
 .boton{
 font-size:16px;
 padding:10px 16px;
 }
-
-.tv span{font-size:110px;}
 
 }
 
@@ -391,10 +329,18 @@ const porcentaje=(pasado/total)*100;
 
 progreso.style.width=porcentaje+"%";
 
-/* ACTIVAR MODO 100 DIAS */
+/* MODO 100 DIAS */
 
 if(dias<=100){
 document.body.classList.add("show");
+document.getElementById("stars").style.display="none";
+}
+
+/* MODO 200 DIAS AUTOMATICO */
+/* SOLO AGREGADO, NO MODIFICA NADA */
+
+if(dias<=200 && dias>100){
+document.body.classList.add("modo200");
 document.getElementById("stars").style.display="none";
 }
 
@@ -458,7 +404,7 @@ animar();
 
 });
 
-/* FUNCIONES SECRETAS */
+/* CODIGOS SECRETOS */
 
 function abrirSecreto(){
 document.getElementById("codigoSecreto").focus();
@@ -470,33 +416,22 @@ if(e.key==="Enter"){
 
 const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
 
-/* activar modo 100 dias */
-
 if(codigo==="justmight"){
 document.body.classList.add("show");
 document.getElementById("stars").style.display="none";
 }
-
-/* confetti */
-
-if(codigo==="bruno"){
-lanzarConfetti();
-}
-
-/* regresar modo normal */
-
-if(codigo==="mars"){
-document.body.classList.remove("show");
-document.getElementById("stars").style.display="block";
-}
-
-/* MODO 200 DIAS */
 
 if(codigo==="mars"){
 document.body.classList.remove("show");
 document.body.classList.remove("modo200");
 document.getElementById("stars").style.display="block";
 }
+
+if(codigo==="riskitall"){
+document.body.classList.add("modo200");
+document.getElementById("stars").style.display="none";
+}
+
 }
 
 }
