@@ -216,9 +216,12 @@ Risk It All
 
 <script>
 
-/* CONTADOR */
+/* FECHAS */
 
 const fechaObjetivo=new Date("December 8, 2026 14:30:00 GMT-0600").getTime();
+const inicio=new Date("March 13, 2026").getTime();
+
+const barra=document.getElementById("progreso");
 
 setInterval(()=>{
 
@@ -232,6 +235,14 @@ const segundos=Math.floor((diferencia%(1000*60))/1000);
 
 document.getElementById("contador").innerHTML=
 dias+"d "+horas+"h "+minutos+"m "+segundos+"s";
+
+/* PROGRESO */
+
+const total=fechaObjetivo-inicio;
+const pasado=ahora-inicio;
+
+const porcentaje=(pasado/total)*100;
+barra.style.width=porcentaje+"%";
 
 /* HORA CDMX */
 
@@ -333,7 +344,7 @@ if(e.key==="Enter"){
 const input=document.getElementById("codigoSecreto");
 const codigo=input.value.toLowerCase();
 
-/* CODIGOS CORRECTOS */
+/* CORRECTOS */
 
 if(codigo==="justmight"){
 document.body.classList.add("show");
