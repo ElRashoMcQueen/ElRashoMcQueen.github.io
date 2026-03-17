@@ -134,6 +134,7 @@ background:linear-gradient(45deg, #ff2b8f, #ff5da6, #ff2b8f);
 color:white;
 box-shadow:0 0 15px #ff2b8f, 0 0 30px #ff5da6;
 border:2px solid #ff2b8f;
+animation:lavaFlash 1.5s infinite alternate;
 }
 
 .modo50 .barra{
@@ -143,6 +144,14 @@ background:rgba(0,0,0,0.3);
 .modo50 .progreso{
 background:linear-gradient(45deg, #ff2b8f, #ff5da6, #ff2b8f);
 box-shadow:0 0 15px #ff2b8f, 0 0 30px #ff5da6;
+animation:lavaFlash 1.5s infinite alternate;
+}
+
+/* Animación tipo lámpara de lava */
+@keyframes lavaFlash{
+0%{ filter: brightness(1); }
+50%{ filter: brightness(1.8); }
+100%{ filter: brightness(1); }
 }
 
 /* CONTADOR */
@@ -186,13 +195,6 @@ margin:10px auto;
 transition: all 0.5s;
 }
 
-.progreso{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#ff00ff,#ff4da6);
-transition: all 0.5s;
-}
-
 /* BOTONES */
 
 .botones{
@@ -213,6 +215,11 @@ color:white;
 cursor:pointer;
 box-shadow:0 0 10px #ff4da6;
 transition: all 0.5s;
+}
+
+/* BOTON EXTRA MODO 50 */
+.boton-apt{
+display:none;
 }
 
 /* TV */
@@ -306,6 +313,18 @@ display:none;
 display:inline-block;
 }
 
+.modo50 .boton-apt{
+display:inline-block;
+background:linear-gradient(45deg,#ff2b8f,#ff5da6,#ff2b8f);
+color:white;
+box-shadow:0 0 15px #ff2b8f,0 0 30px #ff5da6;
+border:2px solid #ff2b8f;
+padding:12px 24px;
+border-radius:20px;
+cursor:pointer;
+animation:lavaFlash 1.5s infinite alternate;
+}
+
 </style>
 </head>
 
@@ -336,6 +355,11 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 <button class="boton boton-risk"
 onclick="window.open('https://www.youtube.com/watch?v=lY5V4hSLWY8','_blank')">
 Risk It All
+</button>
+
+<button class="boton-apt"
+onclick="window.open('https://www.youtube.com/watch?v=APTVideoID','_blank')">
+APT Oficial
 </button>
 </div>
 
@@ -379,6 +403,7 @@ progreso.style.width=(pasado/total*100)+"%";
 
 document.body.classList.remove("show","modo200","modo50");
 document.getElementById("stars").style.display="block";
+document.querySelector(".boton-apt").style.display="none";
 
 if(dias<=200 && dias>100){
 document.body.classList.add("modo200");
@@ -393,6 +418,7 @@ document.getElementById("stars").style.display="none";
 if(dias<=50){
 document.body.classList.add("modo50");
 document.getElementById("stars").style.display="none";
+document.querySelector(".boton-apt").style.display="inline-block";
 }
 
 /* HORA CDMX */
@@ -491,6 +517,7 @@ const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
 
 document.body.classList.remove("show","modo200","modo50");
 document.getElementById("stars").style.display="block";
+document.querySelector(".boton-apt").style.display="none";
 
 if(codigo==="justmight"){
 document.body.classList.add("show");
@@ -512,6 +539,7 @@ document.getElementById("stars").style.display="none";
 if(codigo==="apt"){
 document.body.classList.add("modo50");
 document.getElementById("stars").style.display="none";
+document.querySelector(".boton-apt").style.display="inline-block";
 }
 
 }
