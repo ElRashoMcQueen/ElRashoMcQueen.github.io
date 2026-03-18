@@ -10,7 +10,6 @@
 
 <style>
 
-/* --- (aquí va exactamente tu CSS actual sin cambios) --- */
 body{
 margin:0;
 background:black;
@@ -47,9 +46,7 @@ color:#f4e3a3;
 
 .show h1{
 color:#f2d27c;
-text-shadow:
-2px 2px 0 #1f3d2b,
-4px 4px 0 #000;
+text-shadow:2px 2px 0 #1f3d2b,4px 4px 0 #000;
 }
 
 .show .titulo-superior{
@@ -66,9 +63,7 @@ margin:10px;
 .show #contador{
 color:#f2d27c;
 -webkit-text-stroke:2px #1f3d2b;
-text-shadow:
-2px 2px 0 #1f3d2b,
-4px 4px 0 #000;
+text-shadow:2px 2px 0 #1f3d2b,4px 4px 0 #000;
 }
 
 /* HORA */
@@ -76,12 +71,6 @@ text-shadow:
 font-size:22px;
 margin-top:5px;
 opacity:0.9;
-}
-
-.show #horaCDMX{
-color:white;
--webkit-text-stroke:2px black;
-text-shadow:0 0 10px black;
 }
 
 /* BARRA */
@@ -98,14 +87,6 @@ margin:10px auto;
 height:100%;
 width:0%;
 background:linear-gradient(90deg,#ff00ff,#ff4da6);
-}
-
-.show .barra{
-background:rgba(0,0,0,0.4);
-}
-
-.show .progreso{
-background:linear-gradient(90deg,#9bbf7a,#d6b45f);
 }
 
 /* BOTONES */
@@ -131,26 +112,7 @@ box-shadow:0 0 10px #ff4da6;
 .show .boton{
 background:#c79a3b;
 color:black;
-box-shadow:0 0 8px #000;
 border:2px solid #1f3d2b;
-}
-
-/* TV */
-.tv span{
-font-size:200px;
-margin-top:15px;
-}
-
-.show .tv{
-display:none;
-}
-
-/* ESTRELLAS */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
 }
 
 /* MODO 200 */
@@ -164,92 +126,69 @@ color:#ff2b2b;
 text-shadow:2px 2px 0 black;
 }
 
-.modo200 .titulo-superior{
-color:#00ffaa;
--webkit-text-stroke:1px black;
-}
-
 .modo200 #contador{
 color:#55cfff;
 -webkit-text-stroke:2px black;
-text-shadow:2px 2px 0 black;
-}
-
-.modo200 #horaCDMX{
-color:white;
--webkit-text-stroke:0;
-text-shadow:none;
-}
-
-.modo200 .barra{
-background:rgba(0,0,0,0.4);
-}
-
-.modo200 .progreso{
-background:linear-gradient(
-90deg,
-#ff0000,
-#ff3b3b,
-#ff0000,
-#ff6a00
-);
-box-shadow:
-0 0 10px red,
-0 0 20px red,
-0 0 30px red;
 }
 
 .modo200 .boton{
-background:linear-gradient(
-90deg,
-#ff0000,
-#ff3b3b,
-#ff0000,
-#ff6a00
-);
+background:linear-gradient(90deg,#ff0000,#ff3b3b,#ff6a00);
 color:white;
-box-shadow:
-0 0 10px red,
-0 0 20px red;
-border:2px solid black;
 }
 
-.modo200 canvas{
+/* ========================= */
+/* MODO 50 DIAS */
+/* ========================= */
+
+.modo50{
+background:url("apt.png") center center / cover no-repeat fixed;
+}
+
+/* ocultar textos */
+.modo50 .titulo-superior,
+.modo50 h1{
 display:none;
 }
 
-.modo200 .tv{
+/* posicion */
+.modo50 #contador{
+margin-top:30px;
+}
+
+.modo50 #horaCDMX{
+margin-top:5px;
+}
+
+.modo50 .barra{
+margin-top:10px;
+}
+
+/* lava rosa */
+.modo50 .boton{
+background:linear-gradient(45deg,#ff00cc,#ff4da6,#ff00cc);
+color:white;
+border:2px solid #ff00cc;
+box-shadow:0 0 10px #ff00cc,0 0 20px #ff4da6;
+}
+
+.modo50 .progreso{
+background:linear-gradient(45deg,#ff00cc,#ff4da6,#ff00cc);
+box-shadow:0 0 10px #ff00cc,0 0 20px #ff4da6;
+}
+
+.modo50 canvas{
 display:none;
 }
 
-/* CODIGO SECRETO */
-.secreto{
+/* ESTRELLAS */
+canvas{
 position:fixed;
-bottom:15px;
-right:15px;
-background:transparent;
-z-index:1000;
-text-align:right;
-}
-
-.secreto input{
-background:transparent;
-border:1px solid rgba(255,255,255,0.4);
-color:white;
-padding:4px 6px;
-border-radius:6px;
-outline:none;
-}
-
-.secreto button{
-background:transparent;
-border:none;
-font-size:18px;
-cursor:pointer;
+top:0;
+left:0;
+z-index:-1;
 }
 
 /* ROSAS */
-
 #rosas{
 position:fixed;
 top:0;
@@ -257,39 +196,17 @@ left:0;
 width:100%;
 height:100%;
 pointer-events:none;
-overflow:hidden;
-z-index:3;
 }
 
 .rosa{
 position:absolute;
 top:-50px;
 font-size:24px;
-animation:caerRosa linear forwards;
+animation:caer 8s linear;
 }
 
-@keyframes caerRosa{
-
-0%{
-transform:translateY(-50px) rotate(0deg);
-opacity:1;
-}
-
-100%{
-transform:translateY(110vh) rotate(360deg);
-opacity:0.9;
-}
-
-}
-
-/* BOTON RISK IT ALL */
-
-.boton-risk{
-display:none;
-}
-
-.modo200 .boton-risk{
-display:inline-block;
+@keyframes caer{
+to{transform:translateY(110vh);}
 }
 
 </style>
@@ -298,7 +215,6 @@ display:inline-block;
 <body>
 
 <canvas id="stars"></canvas>
-
 <div id="rosas"></div>
 
 <div class="titulo-superior">
@@ -311,27 +227,14 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 <div id="horaCDMX"></div>
 
 <div class="barra">
-  <div class="progreso" id="progreso"></div>
+<div class="progreso" id="progreso"></div>
 </div>
 
 <div class="botones">
-  <button class="boton" onclick="window.open('https://www.youtube.com/watch?v=1iBm60uJXvs','_blank')">Liquor Store Blues</button>
-  <button class="boton" onclick="window.open('https://www.youtube.com/watch?v=4J41KdZ3JR8','_blank')">Radio de Bruno Mars</button>
-  <button class="boton" onclick="window.open('https://www.youtube.com/watch?v=mrV8kK5t0V8','_blank')">Justmight</button>
-
-  <button class="boton boton-risk"
-    onclick="window.open('https://www.youtube.com/watch?v=lY5V4hSLWY8','_blank')">
-    Risk It All
-  </button>
-</div>
-
-<div class="tv">
-  <span>📺</span>
-</div>
-
-<div class="secreto">
-  <button onclick="abrirSecreto()">🤫</button><br>
-  <input id="codigoSecreto" placeholder="..." onkeydown="detectarEnter(event)">
+<button class="boton" onclick="window.open('https://www.youtube.com/watch?v=1iBm60uJXvs','_blank')">Liquor Store Blues</button>
+<button class="boton" onclick="window.open('https://www.youtube.com/watch?v=4J41KdZ3JR8','_blank')">Radio de Bruno Mars</button>
+<button class="boton" onclick="window.open('https://www.youtube.com/watch?v=mrV8kK5t0V8','_blank')">Justmight</button>
+<button class="boton" onclick="window.open('https://www.youtube.com/watch?v=lY5V4hSLWY8','_blank')">Risk It All</button>
 </div>
 
 <script>
@@ -340,43 +243,49 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 
 const fechaObjetivo=new Date("December 8, 2026 14:30:00 GMT-0600").getTime();
 const inicio=new Date("March 13, 2026").getTime();
-
 const progreso=document.getElementById("progreso");
 
 setInterval(function(){
 
-  const ahora=new Date().getTime();
-  const diferencia=fechaObjetivo-ahora;
+const ahora=new Date().getTime();
+const diferencia=fechaObjetivo-ahora;
 
-  const dias=Math.floor(diferencia/(1000*60*60*24));
-  const horas=Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
-  const minutos=Math.floor((diferencia%(1000*60*60))/(1000*60));
-  const segundos=Math.floor((diferencia%(1000*60))/1000);
+const dias=Math.floor(diferencia/(1000*60*60*24));
+const horas=Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
+const minutos=Math.floor((diferencia%(1000*60*60))/(1000*60));
+const segundos=Math.floor((diferencia%(1000*60))/1000);
 
-  document.getElementById("contador").innerHTML=
-    dias+"d "+horas+"h "+minutos+"m "+segundos+"s";
+document.getElementById("contador").innerHTML=
+dias+"d "+horas+"h "+minutos+"m "+segundos+"s";
 
-  const total=fechaObjetivo-inicio;
-  const pasado=ahora-inicio;
-  progreso.style.width=(pasado/total*100)+"%";
+/* progreso */
+const total=fechaObjetivo-inicio;
+const pasado=ahora-inicio;
+progreso.style.width=(pasado/total*100)+"%";
 
-  /* MODO 100 */
-  if(dias<=100){
-    document.body.classList.add("show");
-    document.getElementById("stars").style.display="none";
-  }
+/* LIMPIAR MODOS */
+document.body.classList.remove("modo50","show","modo200");
 
-  /* MODO 200 */
-  if(dias<=200 && dias>100){
-    document.body.classList.add("modo200");
-    document.getElementById("stars").style.display="none";
-  }
+/* MODOS */
+if(dias<=50){
+document.body.classList.add("modo50");
+document.getElementById("stars").style.display="none";
+}
+else if(dias<=100){
+document.body.classList.add("show");
+document.getElementById("stars").style.display="none";
+}
+else if(dias<=200){
+document.body.classList.add("modo200");
+document.getElementById("stars").style.display="none";
+}
+else{
+document.getElementById("stars").style.display="block";
+}
 
-  /* HORA CDMX */
-  const horaCDMX=new Date().toLocaleTimeString("es-MX",{
-    timeZone:"America/Mexico_City"
-  });
-  document.getElementById("horaCDMX").innerHTML="CDMX: "+horaCDMX;
+/* HORA */
+const horaCDMX=new Date().toLocaleTimeString("es-MX",{timeZone:"America/Mexico_City"});
+document.getElementById("horaCDMX").innerHTML="CDMX: "+horaCDMX;
 
 },1000);
 
@@ -391,75 +300,29 @@ canvas.height=window.innerHeight;
 let estrellas=[];
 
 for(let i=0;i<200;i++){
-  estrellas.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*2
-  });
+estrellas.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2
+});
 }
 
 function animar(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
 
-  ctx.fillStyle="white";
+estrellas.forEach(e=>{
+ctx.beginPath();
+ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
+ctx.fill();
+e.y+=0.2;
+if(e.y>canvas.height)e.y=0;
+});
 
-  estrellas.forEach(e=>{
-    ctx.beginPath();
-    ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
-    ctx.fill();
-
-    e.y+=0.2;
-    if(e.y>canvas.height)e.y=0;
-  });
-
-  requestAnimationFrame(animar);
+requestAnimationFrame(animar);
 }
+
 animar();
-
-/* ROSAS */
-
-function crearRosa(){
-  const rosa=document.createElement("div");
-  rosa.classList.add("rosa");
-  rosa.innerHTML="🌹";
-  rosa.style.left=Math.random()*100+"vw";
-  rosa.style.animationDuration=(5+Math.random()*5)+"s";
-  rosa.style.fontSize=(20+Math.random()*20)+"px";
-  document.getElementById("rosas").appendChild(rosa);
-  setTimeout(()=>{ rosa.remove(); },10000);
-}
-
-setInterval(()=>{
-  if(document.body.classList.contains("show") ||
-     document.body.classList.contains("modo200")){
-    crearRosa();
-  }
-},500);
-
-/* CODIGOS SECRETOS */
-
-function abrirSecreto(){
-  document.getElementById("codigoSecreto").focus();
-}
-
-function detectarEnter(e){
-  if(e.key==="Enter"){
-    const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
-    if(codigo==="justmight"){
-      document.body.classList.add("show");
-      document.getElementById("stars").style.display="none";
-    }
-    if(codigo==="mars"){
-      document.body.classList.remove("show");
-      document.body.classList.remove("modo200");
-      document.getElementById("stars").style.display="block";
-    }
-    if(codigo==="riskitall"){
-      document.body.classList.add("modo200");
-      document.getElementById("stars").style.display="none";
-    }
-  }
-}
 
 </script>
 
