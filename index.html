@@ -40,6 +40,16 @@ color:white;
 text-shadow:0 0 10px black;
 }
 
+/* MODO 50 (NO MUEVE NADA) */
+
+.modo50 h1{
+visibility:hidden;
+}
+
+.modo50 .titulo-superior{
+visibility:hidden;
+}
+
 /* MODO SHOW */
 
 .show{
@@ -59,29 +69,11 @@ color:#9bbf7a;
 text-shadow:1px 1px 3px black;
 }
 
-/* MODO 50 */
-
-.modo50 h1{
-display:none;
-}
-
-.modo50 .titulo-superior{
-display:none;
-}
-
 /* CONTADOR */
 
 #contador{
 font-size:55px;
 margin:10px;
-}
-
-.show #contador{
-color:#f2d27c;
--webkit-text-stroke:2px #1f3d2b;
-text-shadow:
-2px 2px 0 #1f3d2b,
-4px 4px 0 #000;
 }
 
 /* HORA */
@@ -130,13 +122,6 @@ cursor:pointer;
 box-shadow:0 0 10px #ff4da6;
 }
 
-/* TV */
-
-.tv span{
-font-size:200px;
-margin-top:15px;
-}
-
 /* ESTRELLAS */
 
 canvas{
@@ -150,10 +135,6 @@ z-index:-1;
 
 .modo200{
 background:url("silla50.png") center center / cover no-repeat fixed;
-}
-
-.modo200 .tv{
-display:none;
 }
 
 /* CODIGO SECRETO */
@@ -199,16 +180,15 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 <button class="boton">I Just Might</button>
 </div>
 
-<div class="tv">
-<span>📺</span>
-</div>
-
 <div class="secreto">
 <button onclick="abrirSecreto()">🤫</button><br>
 <input id="codigoSecreto" onkeydown="detectarEnter(event)">
 </div>
 
 <script>
+
+/* ESTADO MANUAL */
+let modo50Manual=false;
 
 /* FECHAS */
 
@@ -238,29 +218,26 @@ progreso.style.width=(pasado/total*100)+"%";
 
 /* LIMPIAR MODOS */
 
-document.body.classList.remove("show");
-document.body.classList.remove("modo200");
-document.body.classList.remove("modo50");
+document.body.classList.remove("show","modo200","modo50");
 
-/* MODO 50 AUTOMÁTICO */
+/* PRIORIDAD CORRECTA */
 
-if(dias<=50){
+/* MODO 50 */
+if(modo50Manual || dias<=50){
 document.body.classList.add("modo50");
 }
 
 /* MODO 100 */
-
 else if(dias<=100){
 document.body.classList.add("show");
 }
 
 /* MODO 200 */
-
 else if(dias<=200){
 document.body.classList.add("modo200");
 }
 
-/* HORA CDMX */
+/* HORA */
 
 const horaCDMX=new Date().toLocaleTimeString("es-MX",{
 timeZone:"America/Mexico_City"
@@ -317,16 +294,14 @@ function detectarEnter(e){
 if(e.key==="Enter"){
 const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
 
-/* ACTIVAR MODO 50 CON APT */
+/* ACTIVAR MODO 50 */
 if(codigo==="apt"){
-document.body.classList.add("modo50");
+modo50Manual=true;
 }
 
 /* RESET */
 if(codigo==="mars"){
-document.body.classList.remove("modo50");
-document.body.classList.remove("show");
-document.body.classList.remove("modo200");
+modo50Manual=false;
 }
 }
 }
