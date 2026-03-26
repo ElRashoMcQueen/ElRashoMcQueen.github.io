@@ -219,10 +219,9 @@ const pasado=ahora-inicio;
 progreso.style.width=(pasado/total*100)+"%";
 
 /* LIMPIAR MODOS */
-
 document.body.classList.remove("show","modo200","modo50");
 
-/* PRIORIDAD CORRECTA */
+/* PRIORIDAD DE MODOS */
 
 /* MODO 50 */
 if(modo50Manual || dias<=50){
@@ -230,12 +229,12 @@ document.body.classList.add("modo50");
 }
 
 /* MODO 100 */
-else if(dias<=100){
+else if(modo100Manual || dias<=100){
 document.body.classList.add("show");
 }
 
 /* MODO 200 */
-else if(dias<=200){
+else if(modo200Manual || dias<=200){
 document.body.classList.add("modo200");
 }
 
@@ -296,14 +295,32 @@ function detectarEnter(e){
 if(e.key==="Enter"){
 const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
 
-/* ACTIVAR MODO 50 */
+/* MODO 50 */
 if(codigo==="apt"){
 modo50Manual=true;
+modo100Manual=false;
+modo200Manual=false;
+}
+
+/* MODO 100 */
+if(codigo==="justmight"){
+modo100Manual=true;
+modo200Manual=false;
+modo50Manual=false;
+}
+
+/* MODO 200 */
+if(codigo==="riskitall"){
+modo200Manual=true;
+modo100Manual=false;
+modo50Manual=false;
 }
 
 /* RESET */
 if(codigo==="mars"){
 modo50Manual=false;
+modo100Manual=false;
+modo200Manual=false;
 }
 }
 }
