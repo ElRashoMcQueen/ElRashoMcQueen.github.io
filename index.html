@@ -170,31 +170,7 @@ border:1px solid rgba(255,255,255,0.4);
 color:white;
 padding:4px 6px;
 border-radius:6px;
-}
-
-/* ROSAS */
-
-#rosas{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-overflow:hidden;
-z-index:3;
-}
-
-.rosa{
-position:absolute;
-top:-50px;
-font-size:24px;
-animation:caerRosa linear forwards;
-}
-
-@keyframes caerRosa{
-0%{transform:translateY(-50px);}
-100%{transform:translateY(110vh);}
+outline:none;
 }
 
 </style>
@@ -203,7 +179,6 @@ animation:caerRosa linear forwards;
 <body>
 
 <canvas id="stars"></canvas>
-<div id="rosas"></div>
 
 <div class="titulo-superior">
 Bruno Mars Concierto en el Estadio GNP Seguros
@@ -267,7 +242,7 @@ document.body.classList.remove("show");
 document.body.classList.remove("modo200");
 document.body.classList.remove("modo50");
 
-/* MODO 50 */
+/* MODO 50 AUTOMÁTICO */
 
 if(dias<=50){
 document.body.classList.add("modo50");
@@ -342,8 +317,16 @@ function detectarEnter(e){
 if(e.key==="Enter"){
 const codigo=document.getElementById("codigoSecreto").value.toLowerCase();
 
-if(codigo==="50"){
+/* ACTIVAR MODO 50 CON APT */
+if(codigo==="apt"){
 document.body.classList.add("modo50");
+}
+
+/* RESET */
+if(codigo==="mars"){
+document.body.classList.remove("modo50");
+document.body.classList.remove("show");
+document.body.classList.remove("modo200");
 }
 }
 }
