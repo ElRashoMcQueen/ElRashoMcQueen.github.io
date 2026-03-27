@@ -41,6 +41,68 @@ color:white;
 text-shadow:0 0 10px black;
 }
 
+/* MODO 10 DIAS */
+
+.modo10{
+background:url("24kmagic.png") center center / cover no-repeat fixed;
+}
+
+.modo10 h1{
+display:none;
+}
+
+.modo10 .titulo-superior{
+display:none;
+}
+
+.modo10 #contador{
+margin-top:110px;
+color:#b9923b;
+-webkit-text-stroke:1px rgba(70,50,10,0.95);
+text-shadow:
+2px 2px 0 rgba(60,45,10,0.75),
+0 0 6px rgba(0,0,0,0.25);
+}
+
+.modo10 #horaCDMX{
+color:#8f6f1f;
+-webkit-text-stroke:1px rgba(50,35,10,0.9);
+text-shadow:
+1px 1px 0 rgba(0,0,0,0.45),
+0 0 6px rgba(0,0,0,0.25);
+}
+
+.modo10 .barra{
+margin-top:18px;
+background:rgba(100,75,20,0.35);
+}
+
+.modo10 .progreso{
+background:linear-gradient(90deg,#7f6314,#caa447,#e2c15b,#a07c1a);
+}
+
+.modo10 .botones{
+margin-top:22px;
+margin-bottom:3cm;
+}
+
+.modo10 .boton{
+background:linear-gradient(135deg,#7b5f17 0%,#c8a243 45%,#9a7820 100%);
+color:#fff7da;
+box-shadow:
+0 0 8px rgba(202,164,67,0.35),
+0 0 14px rgba(123,95,23,0.22);
+border:1px solid rgba(255,255,255,0.2);
+}
+
+.modo10 .boton:hover{
+filter:brightness(1.05);
+}
+
+.modo10 .tv{
+display:none;
+}
+
 /* MODO 50 */
 .modo50{
 background:url("apt.png") center center / cover no-repeat fixed;
@@ -397,6 +459,11 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 onclick="window.open('https://www.youtube.com/watch?v=ekr2nIex040','_blank')">
 Apt.
 </button>
+
+<button class="boton boton-24k"
+onclick="window.open('https://www.youtube.com/watch?v=UqyT8IEBkvY','_blank')">
+24K Magic
+</button>
 </div>
 
 <div class="tv">
@@ -467,12 +534,15 @@ return { meses, dias, horas, minutos };
 }
 
 function aplicarModo(diasRestantes){
-document.body.classList.remove("show", "modo200", "modo50");
+document.body.classList.remove("show", "modo200", "modo50", "modo10");
 
 let modoActivo = null;
 
 if(modoManual !== null){
 modoActivo = modoManual;
+}
+else if(diasRestantes <= 10){
+modoActivo = "modo10";
 }
 else if(diasRestantes <= 50){
 modoActivo = "modo50";
@@ -615,6 +685,10 @@ const codigo = document.getElementById("codigoSecreto").value.toLowerCase().trim
 
 if(codigo==="apt"){
 modoManual = "modo50";
+}
+
+if(codigo==="24k"){
+modoManual = "modo10";
 }
 
 if(codigo==="justmight"){
