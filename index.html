@@ -45,6 +45,8 @@ text-shadow:0 0 10px black;
 
 .modo10{
 background:url("24kmagic.png") center center / cover no-repeat fixed;
+justify-content:flex-end;
+padding-bottom:3cm;
 }
 
 .modo10 h1{
@@ -56,7 +58,7 @@ display:none;
 }
 
 .modo10 #contador{
-margin-top:110px;
+margin-top:0;
 color:#b9923b;
 -webkit-text-stroke:1px rgba(70,50,10,0.95);
 text-shadow:
@@ -73,7 +75,7 @@ text-shadow:
 }
 
 .modo10 .barra{
-margin-top:18px;
+margin-top:12px;
 background:rgba(100,75,20,0.35);
 }
 
@@ -82,8 +84,8 @@ background:linear-gradient(90deg,#7f6314,#caa447,#e2c15b,#a07c1a);
 }
 
 .modo10 .botones{
-margin-top:22px;
-margin-bottom:3cm;
+margin-top:14px;
+margin-bottom:0;
 }
 
 .modo10 .boton{
@@ -104,6 +106,7 @@ display:none;
 }
 
 /* MODO 50 */
+
 .modo50{
 background:url("apt.png") center center / cover no-repeat fixed;
 }
@@ -159,6 +162,10 @@ filter:brightness(1.05);
 
 .modo50 .boton-apt{
 display:inline-block;
+}
+
+.modo50 .boton-24k{
+display:none;
 }
 
 .modo50 .tv{
@@ -272,6 +279,16 @@ background:#ff4da6;
 color:white;
 cursor:pointer;
 box-shadow:0 0 10px #ff4da6;
+}
+
+/* BOTONES OCULTOS POR DEFECTO */
+
+.boton-apt{
+display:none;
+}
+
+.boton-24k{
+display:none;
 }
 
 /* TV */
@@ -451,8 +468,16 @@ Bruno Mars Concierto en el Estadio GNP Seguros
 </div>
 
 <div class="botones">
-<button class="boton">Liquor Store Blues</button>
-<button class="boton">Radio de Bruno Mars</button>
+<button class="boton"
+onclick="window.open('https://www.youtube.com/watch?v=1iBm60uJXvs&list=RD1iBm60uJXvs&start_radio=1','_blank')">
+Liquor Store Blues
+</button>
+
+<button class="boton"
+onclick="window.open('https://www.youtube.com/watch?v=4J41KdZ3JR8','_blank')">
+Radio de Bruno Mars
+</button>
+
 <button class="boton">I Just Might</button>
 
 <button class="boton boton-apt"
