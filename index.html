@@ -223,6 +223,42 @@ margin-top:15px;
 display:none;
 }
 
+#rosas,
+#rayos{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+z-index:3;
+}
+
+.rosa,
+.rayo{
+position:absolute;
+top:-60px;
+font-size:24px;
+animation:caerElemento linear forwards;
+}
+
+.rayo{
+font-size:28px;
+filter:drop-shadow(0 0 6px rgba(255,255,200,0.95));
+}
+
+@keyframes caerElemento{
+0%{
+transform:translateY(-60px) rotate(0deg);
+opacity:1;
+}
+100%{
+transform:translateY(110vh) rotate(360deg);
+opacity:0.95;
+}
+}
+
 /* ESTRELLAS */
 
 canvas{
@@ -336,6 +372,8 @@ color:white;
 <body>
 
 <canvas id="stars"></canvas>
+<div id="rosas"></div>
+<div id="rayos"></div>
 
 <div class="titulo-superior">
 Bruno Mars Concierto en el Estadio GNP Seguros
@@ -527,10 +565,44 @@ requestAnimationFrame(animar);
 
 animar();
 
+/* ROSAS Y RAYOS */
+
+function crearRosa(){
+const rosa=document.createElement("div");
+rosa.className="rosa";
+rosa.textContent="🌹";
+rosa.style.left=Math.random()*100+"vw";
+rosa.style.animationDuration=(5+Math.random()*4)+"s";
+rosa.style.fontSize=(20+Math.random()*18)+"px";
+document.getElementById("rosas").appendChild(rosa);
+setTimeout(()=>rosa.remove(),9000);
+}
+
+function crearRayo(){
+const rayo=document.createElement("div");
+rayo.className="rayo";
+rayo.textContent="⚡";
+rayo.style.left=Math.random()*100+"vw";
+rayo.style.animationDuration=(2.8+Math.random()*2)+"s";
+rayo.style.fontSize=(22+Math.random()*18)+"px";
+rayo.style.transform=`rotate(${Math.random()*50-25}deg)`;
+document.getElementById("rayos").appendChild(rayo);
+setTimeout(()=>rayo.remove(),6000);
+}
+
+setInterval(()=>{
+if(document.body.classList.contains("show") || document.body.classList.contains("modo200")){
+crearRosa();
+}
+if(document.body.classList.contains("modo50")){
+crearRayo();
+}
+},500);
+
 window.addEventListener("resize",()=>{
 ajustarCanvas();
 });
-
+  
 /* CODIGO SECRETO */
 
 function abrirSecreto(){
