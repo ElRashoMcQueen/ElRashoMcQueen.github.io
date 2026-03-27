@@ -12,6 +12,7 @@
 
 body{
 margin:0;
+min-height:100vh;
 background:black;
 color:white;
 font-family:Arial, sans-serif;
@@ -53,19 +54,60 @@ visibility:hidden;
 visibility:hidden;
 }
 
-/* CONTADOR */
-
-#contador{
-font-size:55px;
-margin:10px;
-}
-
 .modo50 #contador{
+margin-top:110px;
 color:#ffe6f0;
 -webkit-text-stroke:1px rgba(120,40,70,0.85);
 text-shadow:
 0 0 10px rgba(255,255,255,0.25),
 2px 2px 0 rgba(120,40,70,0.9);
+}
+
+.modo50 #horaCDMX{
+color:#fff7fb;
+-webkit-text-stroke:1px rgba(120,40,70,0.75);
+text-shadow:0 0 8px rgba(255,255,255,0.25);
+}
+
+.modo50 .barra{
+margin-top:18px;
+}
+
+.modo50 .botones{
+margin-top:22px;
+margin-bottom:3cm;
+}
+
+.modo50 .progreso{
+background:linear-gradient(90deg,#ff8fb8,#ff4d92,#ffb3d1);
+}
+
+.modo50 .boton{
+background:linear-gradient(135deg,#ff9ac4 0%,#ff6ea9 48%,#ffb0d4 100%);
+color:white;
+box-shadow:
+0 0 10px rgba(255,110,169,0.55),
+0 0 18px rgba(255,154,196,0.35);
+border:1px solid rgba(255,255,255,0.35);
+}
+
+.modo50 .boton:hover{
+filter:brightness(1.05);
+}
+
+.modo50 .boton-apt{
+display:inline-block;
+}
+
+.modo50 .tv{
+display:none;
+}
+
+/* CONTADOR */
+
+#contador{
+font-size:55px;
+margin:10px;
 }
 
 /* HORA */
@@ -74,12 +116,6 @@ text-shadow:
 font-size:22px;
 margin-top:5px;
 opacity:0.9;
-}
-
-.modo50 #horaCDMX{
-color:#fff7fb;
--webkit-text-stroke:1px rgba(120,40,70,0.75);
-text-shadow:0 0 8px rgba(255,255,255,0.25);
 }
 
 /* MODO SHOW */
@@ -115,6 +151,29 @@ color:white;
 text-shadow:0 0 10px black;
 }
 
+.show .barra{
+background:rgba(255,255,255,0.2);
+}
+
+.show .progreso{
+background:linear-gradient(90deg,#ff00ff,#ff4da6);
+}
+
+.show .boton{
+background:#ff4da6;
+color:white;
+box-shadow:0 0 10px #ff4da6;
+border:none;
+}
+
+.show canvas{
+display:none;
+}
+
+.show .tv{
+display:none;
+}
+
 /* BARRA */
 
 .barra{
@@ -130,10 +189,6 @@ margin:10px auto;
 height:100%;
 width:0%;
 background:linear-gradient(90deg,#ff00ff,#ff4da6);
-}
-
-.modo50 .progreso{
-background:linear-gradient(90deg,#ff8fb8,#ff4d92,#ffb3d1);
 }
 
 /* BOTONES */
@@ -157,29 +212,6 @@ cursor:pointer;
 box-shadow:0 0 10px #ff4da6;
 }
 
-.modo50 .boton{
-background:linear-gradient(135deg,#ff9ac4 0%,#ff6ea9 48%,#ffb0d4 100%);
-color:white;
-box-shadow:
-0 0 10px rgba(255,110,169,0.55),
-0 0 18px rgba(255,154,196,0.35);
-border:1px solid rgba(255,255,255,0.35);
-}
-
-.modo50 .boton:hover{
-filter:brightness(1.05);
-}
-
-/* BOTON APT */
-
-.boton-apt{
-display:none;
-}
-
-.modo50 .boton-apt{
-display:inline-block;
-}
-
 /* TV */
 
 .tv span{
@@ -188,10 +220,6 @@ margin-top:15px;
 }
 
 .show .tv{
-display:none;
-}
-
-.modo50 .tv{
 display:none;
 }
 
@@ -405,13 +433,16 @@ document.body.classList.remove("show", "modo200", "modo50");
 
 let modoActivo = null;
 
-if(modoManual === "modo50" || diasRestantes <= 50){
+if(modoManual !== null){
+modoActivo = modoManual;
+}
+else if(diasRestantes <= 50){
 modoActivo = "modo50";
 }
-else if(modoManual === "show" || diasRestantes <= 100){
+else if(diasRestantes <= 100){
 modoActivo = "show";
 }
-else if(modoManual === "modo200" || diasRestantes <= 200){
+else if(diasRestantes <= 200){
 modoActivo = "modo200";
 }
 
