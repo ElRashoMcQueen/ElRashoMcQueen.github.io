@@ -45,22 +45,21 @@
         }
 
         .progreso { height: 100%; width: 0%; transition: width 0.5s; background: linear-gradient(90deg, #4b3621, #8b5a2b, #63472b); }
-        .boton { padding: 12px 24px; font-size: 18px; border-radius: 20px; border: none; color: white; cursor: pointer; background: linear-gradient(90deg, #4b3621, #8b5a2b); transition: all 0.3s; z-index: 10; }
-
-        .modo10 .progreso, .modo10 .boton { background: linear-gradient(90deg, #7f6314, #caa447, #e2c15b); }
-        .modo50 .progreso, .modo50 .boton { background: linear-gradient(90deg, #ff8fb8, #ff4d92); }
-        .show .progreso, .show .boton { background: linear-gradient(90deg, #2d5a27, #4a7c44); }
-        .modo200 .progreso, .modo200 .boton { background: linear-gradient(90deg, #900, #f00); }
-
-        /* VISIBILIDAD DE BOTONES POR MODO */
-        .boton-apt, .boton-24k, .boton-show, .boton-risk { display: none; }
-        .modo50 .boton-apt { display: inline-block; }
-        .modo10 .boton-24k { display: inline-block; }
-        .show .boton-show { display: inline-block; }
-        .modo200 .boton-risk { display: inline-block; }
         
-        /* Ocultar Liquor Store si hay un modo activo */
-        .modo10 .boton-normal, .modo50 .boton-normal, .show .boton-normal, .modo200 .boton-normal { display: none; }
+        .botones { display: flex; justify-content: center; gap: 12px; margin-top: 20px; z-index: 15; position: relative; }
+        .boton { padding: 12px 24px; font-size: 18px; border-radius: 20px; border: none; color: white; cursor: pointer; transition: all 0.3s; display: none; }
+        
+        /* COLORES Y VISIBILIDAD DE BOTONES */
+        body:not([class]) .boton-normal { display: inline-block; background: linear-gradient(90deg, #4b3621, #8b5a2b); }
+        .modo10 .boton-24k { display: inline-block; background: linear-gradient(90deg, #7f6314, #caa447, #e2c15b); }
+        .modo50 .boton-apt { display: inline-block; background: linear-gradient(90deg, #ff8fb8, #ff4d92); }
+        .show .boton-show { display: inline-block; background: linear-gradient(90deg, #2d5a27, #4a7c44); }
+        .modo200 .boton-risk { display: inline-block; background: linear-gradient(90deg, #900, #f00); }
+
+        .modo10 .progreso { background: linear-gradient(90deg, #7f6314, #caa447, #e2c15b); }
+        .modo50 .progreso { background: linear-gradient(90deg, #ff8fb8, #ff4d92); }
+        .show .progreso { background: linear-gradient(90deg, #2d5a27, #4a7c44); }
+        .modo200 .progreso { background: linear-gradient(90deg, #900, #f00); }
 
         canvas { position: fixed; top: 0; left: 0; z-index: 2; pointer-events: none; }
         #rosas, #rayos { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
@@ -121,10 +120,10 @@
             
             let modo = modoManual;
             if (!modo) {
-                if (diasFaltan <= 20) modo = "modo50";      // APT a los 20
-                else if (diasFaltan <= 50) modo = "modo10"; // 24K a los 50
-                else if (diasFaltan <= 100) modo = "show";  // JustMight a los 100
-                else if (diasFaltan <= 200) modo = "modo200"; // RiskItAll a los 200
+                if (diasFaltan <= 20) modo = "modo50";      
+                else if (diasFaltan <= 50) modo = "modo10"; 
+                else if (diasFaltan <= 100) modo = "show";  
+                else if (diasFaltan <= 200) modo = "modo200";
             }
             document.body.className = modo || "";
 
@@ -135,18 +134,9 @@
 
         setInterval(() => {
             const m = document.body.className;
-            // APT: AHORA CAEN RAYITOS
-            if (m === "modo50") {
-                crearElemento("⚡", "rayos", "rayo");
-            } 
-            // JustMight (show) y RiskItAll: AHORA CAEN ROSAS
-            else if (m === "show" || m === "modo200") {
-                crearElemento("🌹", "rosas", "rosa");
-            }
-            // 24K: BRILLOS
-            else if (m === "modo10") {
-                crearElemento("✨", "rosas", "rosa");
-            }
+            if (m === "modo50") crearElemento("⚡", "rayos", "rayo");
+            else if (m === "show" || m === "modo200") crearElemento("🌹", "rosas", "rosa");
+            else if (m === "modo10") crearElemento("✨", "rosas", "rosa");
         }, 500);
 
         function crearElemento(emoji, contId, clase) {
