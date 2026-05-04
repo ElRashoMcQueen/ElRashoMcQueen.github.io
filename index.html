@@ -17,50 +17,61 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: background 0.5s ease;
+            transition: background 0.8s ease;
         }
 
-        /* TEXTO SUPERIOR Y TITULO */
-        .titulo-superior { margin-top: 12px; font-size: 26px; letter-spacing: 2px; }
-        h1 { font-size: 58px; margin: 8px 0; color: white; -webkit-text-stroke: 2px black; text-shadow: 0 0 10px black; }
+        .titulo-superior { margin-top: 12px; font-size: 26px; letter-spacing: 2px; z-index: 5; }
+        h1 { font-size: 58px; margin: 8px 0; color: white; -webkit-text-stroke: 2px black; text-shadow: 0 0 10px black; z-index: 5; }
 
-        /* MODO 10 DIAS (24K MAGIC - DORADO) */
+        /* MODOS VISUALES */
         .modo10 { background: url("24kmagic.png") center/cover no-repeat fixed; }
         .modo10 h1, .modo10 .titulo-superior { visibility: hidden; }
-        .modo10 #contador { margin-top: 110px; color: #b9923b; text-shadow: 2px 2px 0 rgba(60,45,10,0.75); }
-        .modo10 .progreso { background: linear-gradient(90deg, #7f6314, #caa447, #e2c15b); }
-        .modo10 .boton-24k { display: inline-block; }
-        .modo10 .boton-apt { display: none; }
+        .modo10 #contador { margin-top: 110px; color: #b9923b; text-shadow: 2px 2px 0 rgba(0,0,0,0.8); }
 
-        /* MODO 50 DIAS (APT - ROSA) */
         .modo50 { background: url("apt.png") center/cover no-repeat fixed; }
         .modo50 h1, .modo50 .titulo-superior { visibility: hidden; }
         .modo50 #contador { margin-top: 110px; color: #ffe6f0; text-shadow: 2px 2px 0 rgba(120,40,70,0.9); }
+
+        .show { background: url("escenario.png") center/cover no-repeat fixed; } /* Modo 100 */
+        .modo200 { background: url("silla50.png") center/cover no-repeat fixed; }
+
+        /* ELEMENTOS DINÁMICOS */
+        #contador { font-size: 55px; margin: 10px; z-index: 5; transition: all 0.5s; }
+        #horaCDMX { font-size: 22px; margin-top: 5px; opacity: 0.9; z-index: 5; }
+
+        /* BARRA DE PROGRESO (Más opaca para visibilidad) */
+        .barra { 
+            width: 500px; 
+            height: 25px; 
+            background: rgba(0, 0, 0, 0.6); /* Más oscuro para que resalte en fondos claros */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px; 
+            overflow: hidden; 
+            margin: 10px auto; 
+            z-index: 5; 
+        }
+        .progreso { height: 100%; width: 0%; transition: width 0.5s; background: linear-gradient(90deg, #ff00ff, #ff4da6); }
+        
+        /* Colores de barra según modo */
+        .modo10 .progreso { background: linear-gradient(90deg, #7f6314, #caa447, #e2c15b); }
         .modo50 .progreso { background: linear-gradient(90deg, #ff8fb8, #ff4d92); }
-        .modo50 .boton-apt { display: inline-block; }
-        .modo50 .boton-24k { display: none; }
 
-        /* MODO 200 DIAS / SHOW (ESCENARIO - RAYOS) */
-        .modo200, .show { background: url("escenario.png") center/cover no-repeat fixed; }
-        .modo200 #contador, .show #contador { color: #f2d27c; -webkit-text-stroke: 1px #1f3d2b; }
-        .modo200 .progreso, .show .progreso { background: linear-gradient(90deg, #ff00ff, #ff4da6); }
-
-        /* ELEMENTOS GENERALES */
-        #contador { font-size: 55px; margin: 10px; z-index: 2; }
-        #horaCDMX { font-size: 22px; margin-top: 5px; opacity: 0.9; z-index: 2; }
-        .barra { width: 500px; height: 25px; background: rgba(255,255,255,0.2); border-radius: 20px; overflow: hidden; margin: 10px auto; z-index: 2; }
-        .progreso { height: 100%; width: 0%; transition: width 0.5s; }
-        .botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; z-index: 2; }
+        .botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; z-index: 5; }
         .boton { padding: 12px 24px; font-size: 18px; border-radius: 20px; border: none; background: #ff4da6; color: white; cursor: pointer; }
+        
+        /* Visibilidad de botones */
         .boton-apt, .boton-24k { display: none; }
+        .modo50 .boton-apt { display: inline-block; }
+        .modo10 .boton-24k { display: inline-block; }
 
-        /* EFECTOS */
+        /* EFECTOS CAÍDA */
         #rosas, #rayos { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
         .rosa, .rayo { position: absolute; top: -60px; animation: caer linear forwards; }
         @keyframes caer { 0% { transform: translateY(-60px) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+
         canvas { position: fixed; top: 0; left: 0; z-index: -1; }
         .secreto { position: fixed; bottom: 15px; right: 15px; z-index: 1000; }
-        .secreto input { background: rgba(0,0,0,0.5); border: 1px solid white; color: white; border-radius: 6px; display: none; }
+        .secreto input { background: rgba(0,0,0,0.7); border: 1px solid white; color: white; border-radius: 6px; display: none; padding: 5px; }
     </style>
 </head>
 <body>
@@ -83,7 +94,7 @@
 
     <div class="secreto">
         <button onclick="abrirSecreto()" style="background:none; border:none; cursor:pointer;">🤫</button>
-        <input id="codigoSecreto" placeholder="Código..." onkeydown="detectarEnter(event)">
+        <input id="codigoSecreto" placeholder="Escribe aquí..." onkeydown="detectarEnter(event)">
     </div>
 
     <script>
@@ -94,8 +105,7 @@
         function obtenerTiempoRestante() {
             const ahora = new Date();
             let meses = (fechaObjetivo.getFullYear() - ahora.getFullYear()) * 12 + (fechaObjetivo.getMonth() - ahora.getMonth());
-            let d = new Date(ahora);
-            d.setMonth(d.getMonth() + meses);
+            let d = new Date(ahora); d.setMonth(d.getMonth() + meses);
             if (d > fechaObjetivo) meses--;
             
             let diff = fechaObjetivo - ahora;
@@ -107,14 +117,16 @@
 
         function actualizar() {
             const t = obtenerTiempoRestante();
+            const diasFaltan = t.diff / (1000 * 60 * 60 * 24);
+            
             document.getElementById("contador").textContent = `${t.meses} meses, ${t.dias % 30} días, ${t.horas}h ${t.minutos}m`;
             
-            // Lógica de Modos (Sin contradicciones)
-            let diasFaltan = t.diff / (1000 * 60 * 60 * 24);
+            // Lógica de Modos (10, 50, 100, 200)
             let modo = modoManual;
             if (!modo) {
                 if (diasFaltan <= 10) modo = "modo10";
                 else if (diasFaltan <= 50) modo = "modo50";
+                else if (diasFaltan <= 100) modo = "show";
                 else if (diasFaltan <= 200) modo = "modo200";
             }
             document.body.className = modo || "";
@@ -126,29 +138,29 @@
             document.getElementById("horaCDMX").textContent = "CDMX: " + new Date().toLocaleTimeString("es-MX", {timeZone: "America/Mexico_City"});
         }
 
-        // Efectos temáticos
+        // Intervalos de efectos según el modo activo
         setInterval(() => {
             const m = document.body.className;
             if (m === "modo50") crearElemento("🌹", "rosas", "rosa");
             if (m === "modo200" || m === "show") crearElemento("⚡", "rayos", "rayo");
-        }, 600);
+        }, 500);
 
         function crearElemento(emoji, contId, clase) {
             const el = document.createElement("div");
-            el.className = clase;
-            el.textContent = emoji;
+            el.className = clase; el.textContent = emoji;
             el.style.left = Math.random() * 100 + "vw";
-            el.style.animationDuration = (3 + Math.random() * 3) + "s";
+            el.style.animationDuration = (4 + Math.random() * 3) + "s";
             document.getElementById(contId).appendChild(el);
-            setTimeout(() => el.remove(), 5000);
+            setTimeout(() => el.remove(), 6000);
         }
 
         function detectarEnter(e) {
             if (e.key === "Enter") {
-                const c = e.target.value.toLowerCase();
+                const c = e.target.value.toLowerCase().trim();
                 if (c === "apt") modoManual = "modo50";
                 else if (c === "24k") modoManual = "modo10";
                 else if (c === "show") modoManual = "show";
+                else if (c === "riskitall") modoManual = "modo200";
                 else if (c === "mars") modoManual = null;
                 e.target.value = "";
                 actualizar();
@@ -158,20 +170,20 @@
         function abrirSecreto() {
             const i = document.getElementById("codigoSecreto");
             i.style.display = i.style.display === "block" ? "none" : "block";
-            i.focus();
+            if(i.style.display === "block") i.focus();
         }
 
-        // Estrellas
+        // Estrellas fijas
         const canvas = document.getElementById("stars");
         const ctx = canvas.getContext("2d");
-        let stars = Array(150).fill().map(() => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.5 }));
+        let stars = Array(150).fill().map(() => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.2 }));
         function animar() {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             ctx.clearRect(0,0,canvas.width, canvas.height);
             ctx.fillStyle = "white";
             stars.forEach(s => {
                 ctx.beginPath(); ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI*2); ctx.fill();
-                s.y += 0.0005; if (s.y > 1) s.y = 0;
+                s.y += 0.0003; if (s.y > 1) s.y = 0;
             });
             requestAnimationFrame(animar);
         }
