@@ -25,17 +25,16 @@
         .modo50 h1, .modo50 .titulo-superior { visibility: hidden; }
         .modo50 #contador { margin-top: 110px; color: #ffe6f0; text-shadow: 2px 2px 0 rgba(120,40,70,0.9); }
 
-        /* JUST MIGHT - ESTILO DE LA IMAGEN */
+        /* JUST MIGHT / SHOW */
         .show { background: url("escenario.png") center/cover no-repeat fixed; }
         .show #contador { 
-            color: #d2b48c; /* Color beige/dorado suave de fondo */
-            -webkit-text-stroke: 1.5px #1a2e1a; /* Borde verde oscuro */
-            font-weight: bold;
-            font-size: 65px;
+            color: #d2b48c; 
+            -webkit-text-stroke: 1.5px #1a2e1a; 
+            font-weight: bold; font-size: 65px;
             text-shadow: 2px 2px 0 #1a2e1a, 4px 4px 10px rgba(0,0,0,0.5);
         }
-        .show .titulo-superior { color: #4a7c44; text-shadow: 1px 1px 2px black; }
 
+        /* RISK IT ALL / MODO 200 */
         .modo200 { background: url("silla50.png") center/cover no-repeat fixed; }
         .modo200 #contador { color: #ff0000; text-shadow: 2px 2px 0 #000; }
 
@@ -115,20 +114,19 @@
             const t = obtenerTiempoRestante();
             const diasFaltan = t.diff / (1000 * 60 * 60 * 24);
             
-            // Actualización con SEGUNDOS
             if (mostrarSoloDias) {
                 document.getElementById("contador").textContent = `${t.diasTotales}d ${t.horas}h ${t.minutos}m ${t.segundos}s`;
             } else {
                 document.getElementById("contador").textContent = `${t.meses}m ${t.diasResto}d ${t.horas}h ${t.minutos}m ${t.segundos}s`;
             }
             
-            // Lógica AUTOMÁTICA por días restantes
+            // LÓGICA AUTOMÁTICA SEGÚN TUS NUEVOS TIEMPOS
             let modo = modoManual;
             if (!modo) {
-                if (diasFaltan <= 10) modo = "modo10";
-                else if (diasFaltan <= 50) modo = "modo50";
-                else if (diasFaltan <= 100) modo = "show";
-                else if (diasFaltan <= 200) modo = "modo200";
+                if (diasFaltan <= 20) modo = "modo50";      // APT a los 20 días
+                else if (diasFaltan <= 50) modo = "modo10"; // 24K a los 50 días
+                else if (diasFaltan <= 100) modo = "show";  // JustMight a los 100 días
+                else if (diasFaltan <= 200) modo = "modo200"; // RiskItAll a los 200 días
             }
             document.body.className = modo || "";
 
