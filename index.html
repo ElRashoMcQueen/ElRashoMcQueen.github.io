@@ -32,8 +32,17 @@
         .modo50 h1, .modo50 .titulo-superior { visibility: hidden; }
         .modo50 #contador { margin-top: 110px; color: #ffe6f0; text-shadow: 2px 2px 0 rgba(120,40,70,0.9); }
 
+        /* JUST MIGHT - VERDE VINTAGE */
         .show { background: url("escenario.png") center/cover no-repeat fixed; }
+        .show #contador { 
+            color: #2d5a27; /* Verde vintage relleno */
+            -webkit-text-stroke: 1px #2d5a27;
+            text-shadow: 3px 3px 0 #d2b48c; /* Beige vintage profundidad */
+        }
+
+        /* RISK IT ALL - ROJO */
         .modo200 { background: url("silla50.png") center/cover no-repeat fixed; }
+        .modo200 #contador { color: #ff0000; text-shadow: 2px 2px 0 #000; }
 
         #contador { font-size: 55px; margin: 10px; z-index: 5; transition: all 0.5s; }
         #horaCDMX { font-size: 22px; margin-top: 5px; opacity: 0.9; z-index: 5; }
@@ -45,27 +54,28 @@
             border-radius: 20px; overflow: hidden; margin: 10px auto; z-index: 5; 
         }
 
-        /* COLORES DINÁMICOS DE BARRA Y BOTONES */
+        /* COLORES DINÁMICOS */
         .progreso { height: 100%; width: 0%; transition: width 0.5s; background: linear-gradient(90deg, #4b3621, #8b5a2b, #63472b); }
         .boton { padding: 12px 24px; font-size: 18px; border-radius: 20px; border: none; color: white; cursor: pointer; background: linear-gradient(90deg, #4b3621, #8b5a2b); transition: all 0.3s; }
 
         .modo10 .progreso, .modo10 .boton { background: linear-gradient(90deg, #7f6314, #caa447, #e2c15b); }
         .modo50 .progreso, .modo50 .boton { background: linear-gradient(90deg, #ff8fb8, #ff4d92); }
-        .show .progreso, .show .boton, .modo200 .progreso, .modo200 .boton { background: linear-gradient(90deg, #ff00ff, #ff4da6); }
+        .show .progreso, .show .boton { background: linear-gradient(90deg, #2d5a27, #4a7c44); } /* Verde Vintage */
+        .modo200 .progreso, .modo200 .boton { background: linear-gradient(90deg, #900, #f00); } /* Rojo */
 
         /* VISIBILIDAD DE BOTONES */
         .boton-apt, .boton-24k { display: none; }
         .modo50 .boton-apt { display: inline-block; }
         .modo10 .boton-24k { display: inline-block; }
-        
-        /* Ocultar Liquor Store si hay un modo activo */
         .modo10 .boton-normal, .modo50 .boton-normal, .show .boton-normal, .modo200 .boton-normal { display: none; }
 
         #rosas, #rayos { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
         .rosa, .rayo { position: absolute; top: -60px; animation: caer linear forwards; }
         @keyframes caer { 0% { transform: translateY(-60px) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; display: none; } /* Oculto por defecto */
+        body:not([class]) canvas { display: block; } /* Solo se ve si body NO tiene clase (modo normal) */
+
         .secreto { position: fixed; bottom: 15px; right: 15px; z-index: 1000; }
         .secreto input { background: rgba(0,0,0,0.7); border: 1px solid white; color: white; border-radius: 6px; display: none; padding: 5px; }
     </style>
@@ -130,15 +140,19 @@
             document.getElementById("horaCDMX").textContent = "CDMX: " + new Date().toLocaleTimeString("es-MX", {timeZone: "America/Mexico_City"});
         }
 
-        // LÓGICA DE EFECTOS CORREGIDA
         setInterval(() => {
             const m = document.body.className;
+            // APT y Risk It All: ROSAS
             if (m === "modo50" || m === "modo200") {
-                crearElemento("🌹", "rosas", "rosa"); // Rosas en APT y Risk It All
-            } else if (m === "show") {
-                crearElemento("⚡", "rayos", "rayo"); // Rayos en Just Might
-            } else if (m === "modo10") {
-                crearElemento("✨", "rosas", "rosa"); // Brillos en 24K
+                crearElemento("🌹", "rosas", "rosa");
+            } 
+            // Just Might: RAYOS
+            else if (m === "show") {
+                crearElemento("⚡", "rayos", "rayo");
+            } 
+            // 24K: BRILLOS
+            else if (m === "modo10") {
+                crearElemento("✨", "rosas", "rosa");
             }
         }, 500);
 
