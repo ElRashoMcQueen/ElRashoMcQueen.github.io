@@ -39,34 +39,27 @@
         #horaCDMX { font-size: 22px; margin-top: 5px; opacity: 0.9; z-index: 5; }
 
         .barra { 
-            width: 500px; 
-            height: 25px; 
+            width: 500px; height: 25px; 
             background: rgba(0, 0, 0, 0.6); 
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px; 
-            overflow: hidden; 
-            margin: 10px auto; 
-            z-index: 5; 
+            border-radius: 20px; overflow: hidden; margin: 10px auto; z-index: 5; 
         }
 
-        /* BARRA CAFÉ POR DEFECTO */
-        .progreso { 
-            height: 100%; 
-            width: 0%; 
-            transition: width 0.5s; 
-            background: linear-gradient(90deg, #4b3621, #8b5a2b, #63472b); 
-        }
-        
-        .modo10 .progreso { background: linear-gradient(90deg, #7f6314, #caa447, #e2c15b); }
-        .modo50 .progreso { background: linear-gradient(90deg, #ff8fb8, #ff4d92); }
-        .show .progreso, .modo200 .progreso { background: linear-gradient(90deg, #ff00ff, #ff4da6); }
+        /* COLORES DINÁMICOS DE BARRA Y BOTONES */
+        .progreso { height: 100%; width: 0%; transition: width 0.5s; background: linear-gradient(90deg, #4b3621, #8b5a2b, #63472b); }
+        .boton { padding: 12px 24px; font-size: 18px; border-radius: 20px; border: none; color: white; cursor: pointer; background: linear-gradient(90deg, #4b3621, #8b5a2b); transition: all 0.3s; }
 
-        .botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; z-index: 5; }
-        .boton { padding: 12px 24px; font-size: 18px; border-radius: 20px; border: none; background: #ff4da6; color: white; cursor: pointer; }
-        
+        .modo10 .progreso, .modo10 .boton { background: linear-gradient(90deg, #7f6314, #caa447, #e2c15b); }
+        .modo50 .progreso, .modo50 .boton { background: linear-gradient(90deg, #ff8fb8, #ff4d92); }
+        .show .progreso, .show .boton, .modo200 .progreso, .modo200 .boton { background: linear-gradient(90deg, #ff00ff, #ff4da6); }
+
+        /* VISIBILIDAD DE BOTONES */
         .boton-apt, .boton-24k { display: none; }
         .modo50 .boton-apt { display: inline-block; }
         .modo10 .boton-24k { display: inline-block; }
+        
+        /* Ocultar Liquor Store si hay un modo activo */
+        .modo10 .boton-normal, .modo50 .boton-normal, .show .boton-normal, .modo200 .boton-normal { display: none; }
 
         #rosas, #rayos { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
         .rosa, .rayo { position: absolute; top: -60px; animation: caer linear forwards; }
@@ -90,7 +83,7 @@
     <div class="barra"><div class="progreso" id="progreso"></div></div>
 
     <div class="botones">
-        <button class="boton" onclick="window.open('https://youtube.com')">Liquor Store Blues</button>
+        <button class="boton boton-normal" onclick="window.open('https://youtube.com')">Liquor Store Blues</button>
         <button class="boton boton-apt" onclick="window.open('https://youtube.com')">Apt.</button>
         <button class="boton boton-24k" onclick="window.open('https://youtube.com')">24K Magic</button>
     </div>
@@ -102,7 +95,7 @@
 
     <script>
         let modoManual = null;
-        let mostrarSoloDias = false; // Estado para el código "dias"
+        let mostrarSoloDias = false;
         const fechaObjetivo = new Date("2026-12-08T14:30:00-06:00");
         const inicio = new Date("2026-03-13T00:00:00-06:00");
 
@@ -111,7 +104,6 @@
             let meses = (fechaObjetivo.getFullYear() - ahora.getFullYear()) * 12 + (fechaObjetivo.getMonth() - ahora.getMonth());
             let d = new Date(ahora); d.setMonth(d.getMonth() + meses);
             if (d > fechaObjetivo) meses--;
-            
             let diff = fechaObjetivo - ahora;
             const diasTotales = Math.floor(diff / (1000 * 60 * 60 * 24));
             const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -122,13 +114,7 @@
         function actualizar() {
             const t = obtenerTiempoRestante();
             const diasFaltan = t.diff / (1000 * 60 * 60 * 24);
-            
-            // Lógica de visualización del contador
-            if (mostrarSoloDias) {
-                document.getElementById("contador").textContent = `${t.diasTotales} días, ${t.horas}h ${t.minutos}m`;
-            } else {
-                document.getElementById("contador").textContent = `${t.meses} meses, ${t.diasResto} días, ${t.horas}h ${t.minutos}m`;
-            }
+            document.getElementById("contador").textContent = mostrarSoloDias ? `${t.diasTotales} días, ${t.horas}h ${t.minutos}m` : `${t.meses} meses, ${t.diasResto} días, ${t.horas}h ${t.minutos}m`;
             
             let modo = modoManual;
             if (!modo) {
@@ -144,10 +130,16 @@
             document.getElementById("horaCDMX").textContent = "CDMX: " + new Date().toLocaleTimeString("es-MX", {timeZone: "America/Mexico_City"});
         }
 
+        // LÓGICA DE EFECTOS CORREGIDA
         setInterval(() => {
             const m = document.body.className;
-            if (m === "modo50") crearElemento("🌹", "rosas", "rosa");
-            if (m === "modo200" || m === "show") crearElemento("⚡", "rayos", "rayo");
+            if (m === "modo50" || m === "modo200") {
+                crearElemento("🌹", "rosas", "rosa"); // Rosas en APT y Risk It All
+            } else if (m === "show") {
+                crearElemento("⚡", "rayos", "rayo"); // Rayos en Just Might
+            } else if (m === "modo10") {
+                crearElemento("✨", "rosas", "rosa"); // Brillos en 24K
+            }
         }, 500);
 
         function crearElemento(emoji, contId, clase) {
@@ -164,9 +156,9 @@
                 const c = e.target.value.toLowerCase().trim();
                 if (c === "apt") modoManual = "modo50";
                 else if (c === "24k") modoManual = "modo10";
-                else if (c === "justmight") modoManual = "show"; // Corregido
+                else if (c === "justmight") modoManual = "show";
                 else if (c === "riskitall") modoManual = "modo200";
-                else if (c === "dias") mostrarSoloDias = !mostrarSoloDias; // Toggle de formato
+                else if (c === "dias") mostrarSoloDias = !mostrarSoloDias;
                 else if (c === "mars") { modoManual = null; mostrarSoloDias = false; }
                 e.target.value = "";
                 actualizar();
