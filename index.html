@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bruno Mars Countdown</title>
+    
+    <!-- ICONO RESTAURADO -->
+    <link rel="icon" href="icono.png">
+
     <style>
         body {
             margin: 0; min-height: 100vh; background: black; color: white;
@@ -17,7 +21,14 @@
         /* MODOS VISUALES */
         .modo10 { background: url("24kmagic.png") center/cover no-repeat fixed; }
         .modo10 h1, .modo10 .titulo-superior { visibility: hidden; }
-        .modo10 #contador { margin-top: 110px; color: #b9923b; text-shadow: 2px 2px 0 rgba(0,0,0,0.8); }
+        
+        /* COLOR DORADO PARA CONTADOR Y HORA EN MODO 24K */
+        .modo10 #contador, .modo10 #horaCDMX { 
+            color: #b9923b; 
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.8); 
+            opacity: 1; 
+        }
+        .modo10 #contador { margin-top: 110px; }
 
         .modo50 { background: url("apt.png") center/cover no-repeat fixed; }
         .modo50 h1, .modo50 .titulo-superior { visibility: hidden; }
@@ -34,7 +45,7 @@
         .modo200 #contador { color: #ff0000; text-shadow: 2px 2px 0 #000; }
 
         #contador { font-size: 55px; margin: 10px; z-index: 5; transition: all 0.5s; }
-        #horaCDMX { font-size: 22px; margin-top: 5px; opacity: 0.9; z-index: 5; }
+        #horaCDMX { font-size: 22px; margin-top: 5px; opacity: 0.9; z-index: 5; transition: color 0.5s; }
 
         .barra { 
             width: 500px; height: 25px; background: rgba(0, 0, 0, 0.6); 
@@ -79,7 +90,7 @@
         const fechaObjetivo = new Date("2026-12-08T14:30:00-06:00");
         const inicio = new Date("2026-03-13T00:00:00-06:00");
 
-        function actualizar() {
+        function obtenerTiempoRestante() {
             const ahora = new Date();
             let diff = fechaObjetivo - ahora;
             const t = {
