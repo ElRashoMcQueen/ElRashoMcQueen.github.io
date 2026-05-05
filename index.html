@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bruno Mars Countdown</title>
-    <link rel="icon" href="icono.png">
     <style>
         body {
             margin: 0; min-height: 100vh; background: black; color: white;
@@ -44,20 +43,7 @@
         }
         .progreso { height: 100%; width: 0%; transition: width 0.5s; background: linear-gradient(90deg, #4b3621, #8b5a2b); }
 
-        /* BOTONES FISICOS */
-        .botones { margin-top: 20px; z-index: 100; position: relative; }
-        .boton { 
-            padding: 12px 24px; font-size: 18px; border-radius: 20px; border: none; 
-            color: white; cursor: pointer; display: none; font-weight: bold;
-        }
-
-        /* Lógica de colores y visibilidad por CSS puro */
-        body:not([class]) .btn-normal { display: inline-block; background: linear-gradient(90deg, #4b3621, #8b5a2b); }
-        .modo10 .btn-24k { display: inline-block; background: linear-gradient(90deg, #7f6314, #caa447); }
-        .modo50 .btn-apt { display: inline-block; background: linear-gradient(90deg, #ff8fb8, #ff4d92); }
-        .show .btn-show { display: inline-block; background: linear-gradient(90deg, #2d5a27, #4a7c44); }
-        .modo200 .btn-risk { display: inline-block; background: linear-gradient(90deg, #900, #f00); }
-
+        /* COLORES DE BARRA SEGÚN MODO */
         .modo10 .progreso { background: linear-gradient(90deg, #7f6314, #caa447); }
         .modo50 .progreso { background: linear-gradient(90deg, #ff8fb8, #ff4d92); }
         .show .progreso { background: linear-gradient(90deg, #2d5a27, #4a7c44); }
@@ -67,6 +53,7 @@
         #rosas, #rayos { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
         .rosa, .rayo { position: absolute; top: -60px; animation: caer linear forwards; }
         @keyframes caer { 0% { transform: translateY(-60px) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+        
         .secreto { position: fixed; bottom: 15px; right: 15px; z-index: 1000; }
         .secreto input { background: rgba(0,0,0,0.7); border: 1px solid white; color: white; border-radius: 6px; display: none; padding: 5px; }
     </style>
@@ -80,15 +67,6 @@
     <div id="contador"></div>
     <div id="horaCDMX"></div>
     <div class="barra"><div class="progreso" id="progreso"></div></div>
-
-    <div class="botones">
-        <!-- BOTONES CON LINKS DIRECTOS -->
-        <button class="boton btn-normal" onclick="window.open('https://youtube.com')">Liquor Store Blues</button>
-        <button class="boton btn-apt" onclick="window.open('https://youtube.com')">Apt.</button>
-        <button class="boton btn-24k" onclick="window.open('https://youtube.com')">24K Magic</button>
-        <button class="boton btn-show" onclick="window.open('https://youtube.com')">I Just Might</button>
-        <button class="boton btn-risk" onclick="window.open('https://youtube.com')">Risk it all</button>
-    </div>
 
     <div class="secreto">
         <button onclick="abrirSecreto()" style="background:none; border:none; cursor:pointer;">🤫</button>
